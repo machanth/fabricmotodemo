@@ -150,6 +150,8 @@ Completed**.
 
 ### Fabric data agent and Copilot
 
+[Download the dedicated Fabric data agent narration](audio/fabric-data-agent.wav).
+
 > Now I'm going to open the Motorola Sales Agent.
 >
 > Here we can see that Motorola Sales Certified is its approved source. I'm also
