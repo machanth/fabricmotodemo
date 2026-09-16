@@ -1,0 +1,112 @@
+table 'Fact Sales'
+	lineageTag: e681330d-c086-43d8-83e6-0101d7f185aa
+
+	measure 'Net Revenue' = SUM('Fact Sales'[Net Revenue Amount])
+		formatString: $#,0.00;($#,0.00);$#,0.00
+		description: Net sales revenue after line-level discount, using synthetic POC data.
+		lineageTag: 03aa9b27-a437-49cd-9151-eb7953d31de2
+
+	measure 'Order Count' = DISTINCTCOUNT('Fact Sales'[Order Key])
+		formatString: #,0
+		description: Distinct customer orders in the current filter context.
+		lineageTag: 49ce3672-3588-49ea-b336-956288342a82
+
+	measure 'PCR Revenue' = CALCULATE([Net Revenue], KEEPFILTERS(Segment[Segment Name] = "Priority Communications"))
+		formatString: $#,0.00;($#,0.00);$#,0.00
+		description: Priority Communications Revenue. PCR is synthetic terminology created only for this POC.
+		lineageTag: d031d861-df9e-49de-8b5f-b01412365da1
+
+	column 'Order Line Key'
+		dataType: string
+		isHidden
+		sourceColumn: OrderLineKey
+		lineageTag: 1d300709-e25a-4dd4-9613-534b6eaa0718
+		summarizeBy: none
+
+	column 'Order Key'
+		dataType: string
+		isHidden
+		sourceColumn: OrderKey
+		lineageTag: 6d09019a-d604-477b-a85b-565d2a7416c4
+		summarizeBy: none
+
+	column 'Customer Key'
+		dataType: string
+		isHidden
+		sourceColumn: CustomerKey
+		lineageTag: 5c36a6e2-05ce-4bed-a898-73b2fa35045c
+		summarizeBy: none
+
+	column 'Product Key'
+		dataType: string
+		isHidden
+		sourceColumn: ProductKey
+		lineageTag: 6c284382-c82b-437c-a947-e89700beea86
+		summarizeBy: none
+
+	column 'Order Date'
+		dataType: dateTime
+		isHidden
+		formatString: Short Date
+		sourceColumn: OrderDate
+		lineageTag: e91daa81-49c2-4666-87da-45927818aa0c
+		summarizeBy: none
+
+	column 'Ship Date'
+		dataType: dateTime
+		isHidden
+		formatString: Short Date
+		sourceColumn: ShipDate
+		lineageTag: b49e6f8f-b26f-4c9d-81e9-dc94bc5460fd
+		summarizeBy: none
+
+	column 'Sales Region'
+		dataType: string
+		isHidden
+		sourceColumn: SalesRegion
+		lineageTag: fd77b675-d37e-4eac-bd7a-52a68553a49a
+		summarizeBy: none
+
+	column 'Order Status'
+		dataType: string
+		sourceColumn: OrderStatus
+		lineageTag: 9702c44f-7469-4a81-b433-4c1ef4cf1231
+		summarizeBy: none
+
+	column Quantity
+		dataType: int64
+		formatString: #,0
+		sourceColumn: Quantity
+		lineageTag: 8ff3fa0a-14aa-4335-8db0-e7b98acf3d21
+		summarizeBy: sum
+
+	column 'Unit Price'
+		dataType: decimal
+		formatString: $#,0.00
+		sourceColumn: UnitPrice
+		lineageTag: 91b5c991-f1c2-4077-80f2-3477d7bd749e
+		summarizeBy: none
+
+	column 'Discount Percent'
+		dataType: decimal
+		formatString: 0.0%
+		sourceColumn: DiscountPercent
+		lineageTag: 4d41f55b-096c-4936-a9fd-d58de87b53e2
+		summarizeBy: none
+
+	column 'Net Revenue Amount'
+		dataType: decimal
+		isHidden
+		formatString: $#,0.00
+		sourceColumn: NetRevenue
+		lineageTag: 1dc54e22-e722-4803-b8cf-066db21059b0
+		summarizeBy: sum
+
+	partition 'Fact Sales' = entity
+		mode: directLake
+		source
+			entityName: GoldFactSales
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table

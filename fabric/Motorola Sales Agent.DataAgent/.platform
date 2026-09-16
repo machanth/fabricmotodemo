@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataAgent",
+    "displayName": "Motorola Sales Agent",
+    "description": "Read-only POC agent grounded in the certified synthetic sales semantic model."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "b184fae7-6fc1-4a0b-bc81-ee4df2d480d9"
+  }
+}

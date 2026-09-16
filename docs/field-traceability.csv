@@ -1,0 +1,23 @@
+Source domain,Source table,Source field,Bronze table,Silver/Gold field,Semantic model field,Transformation/business rule
+Warehouse-style,orders,order_id,Bronze_orders,GoldFactSales.OrderKey,Fact Sales.Order Key,Join order lines to orders on order_id; hidden technical key
+Warehouse-style,orders,customer_id,Bronze_orders,GoldFactSales.CustomerKey,Customer.Customer Key,Many-to-one fact-to-customer relationship; hidden
+Warehouse-style,orders,order_date,Bronze_orders,GoldFactSales.OrderDate,Order Date.Date,Role-playing calendar relationship for order timing
+Warehouse-style,orders,ship_date,Bronze_orders,GoldFactSales.ShipDate,Ship Date.Date,Role-playing calendar relationship for shipping timing
+Warehouse-style,orders,sales_region,Bronze_orders,GoldFactSales.SalesRegion,Customer.Region,RLS is applied on customer region; fact copy is hidden
+Warehouse-style,order_lines,order_line_id,Bronze_order_lines,GoldFactSales.OrderLineKey,Fact Sales.Order Line Key,Line-grain hidden technical key
+Warehouse-style,order_lines,product_id,Bronze_order_lines,GoldFactSales.ProductKey,Product.Product Key,Many-to-one fact-to-product relationship; hidden
+Warehouse-style,order_lines,quantity,Bronze_order_lines,GoldFactSales.Quantity,Fact Sales.Quantity,Integer quantity
+Warehouse-style,order_lines,unit_price,Bronze_order_lines,GoldFactSales.UnitPrice,Fact Sales.Unit Price,Decimal currency value
+Warehouse-style,order_lines,discount_pct,Bronze_order_lines,GoldFactSales.DiscountPercent,Fact Sales.Discount Percent,Decimal discount already reflected in generated unit price
+Warehouse-style,order_lines,quantity + unit_price,Bronze_order_lines,GoldFactSales.NetRevenue,Fact Sales.Net Revenue,Quantity multiplied by discounted unit price; exposed as certified measure
+Warehouse-style,products,product_name,Bronze_products,GoldDimProduct.ProductName,Product.Product Name,Trim whitespace
+Warehouse-style,products,product_category,Bronze_products,GoldDimProduct.ProductCategory,Product.Product Category,Trim whitespace
+Warehouse-style,products,list_price,Bronze_products,GoldDimProduct.ListPrice,Product.List Price,Decimal list price
+Object-storage shortcut,customers,customer_id,Bronze_customers,GoldDimCustomer.CustomerKey,Customer.Customer Key,Hidden dimension key
+Object-storage shortcut,customers,customer_name,Bronze_customers,GoldDimCustomer.CustomerName,Customer.Customer Name,Generated synthetic organization name
+Object-storage shortcut,customers,region,Bronze_customers,GoldDimCustomer.Region,Customer.Region,North America or Europe security boundary
+Object-storage shortcut,customers,country_code,Bronze_customers,GoldDimCustomer.CountryCode,Customer.Country Code,Uppercase ISO-style synthetic code
+Object-storage shortcut,customer_segment_assignments,customer_id,Bronze_customer_segment_assignments,GoldBridgeCustomerSegment.CustomerKey,Customer Segment Bridge.Customer Key,Genuine many-to-many bridge assignment
+Object-storage shortcut,customer_segment_assignments,segment_id,Bronze_customer_segment_assignments,GoldBridgeCustomerSegment.SegmentKey,Customer Segment Bridge.Segment Key,Genuine many-to-many bridge assignment
+Object-storage shortcut,segments,segment_name,Bronze_segments,GoldDimSegment.SegmentName,Segment.Segment Name,Includes synthetic Priority Communications segment
+Derived calendar,GoldFactSales,OrderDate and ShipDate,Not applicable,GoldDimDate.Date,Order Date.Date and Ship Date.Date,Contiguous calendar reused as two role-playing model tables

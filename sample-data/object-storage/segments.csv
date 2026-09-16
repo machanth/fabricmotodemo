@@ -1,0 +1,5 @@
+segment_id,segment_name,segment_description
+SEG-ENT,Enterprise,Large strategic communications customers
+SEG-PS,Public Safety,Synthetic public-safety demonstration segment
+SEG-COM,Commercial,Mid-market commercial customers
+SEG-PCR,Priority Communications,Synthetic PCR demonstration segment

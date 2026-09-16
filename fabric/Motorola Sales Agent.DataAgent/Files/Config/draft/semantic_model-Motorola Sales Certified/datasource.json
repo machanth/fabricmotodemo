@@ -1,0 +1,122 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/dataAgent/definition/dataSource/1.0.0/schema.json",
+  "artifactId": "00000000-0000-0000-0000-000000000000",
+  "workspaceId": "00000000-0000-0000-0000-000000000000",
+  "displayName": "Motorola Sales Certified",
+  "type": "semantic_model",
+  "userDescription": "Certified Direct Lake model containing only generated POC sales data.",
+  "dataSourceInstructions": "Use certified measures, enforce RLS, distinguish order and ship date roles, and treat segments as non-additive.",
+  "metadata": {},
+  "elements": [
+    {
+      "display_name": "Motorola Sales Certified",
+      "type": "semantic_model",
+      "is_selected": true,
+      "children": [
+        {
+          "display_name": "Fact Sales",
+          "type": "semantic_model.table",
+          "is_selected": true,
+          "children": [
+            {
+              "display_name": "Net Revenue",
+              "type": "semantic_model.measure",
+              "is_selected": true
+            },
+            {
+              "display_name": "Order Count",
+              "type": "semantic_model.measure",
+              "is_selected": true
+            },
+            {
+              "display_name": "PCR Revenue",
+              "type": "semantic_model.measure",
+              "is_selected": true
+            },
+            {
+              "display_name": "Order Status",
+              "type": "semantic_model.column",
+              "is_selected": true
+            },
+            {
+              "display_name": "Quantity",
+              "type": "semantic_model.column",
+              "is_selected": true
+            }
+          ]
+        },
+        {
+          "display_name": "Customer",
+          "type": "semantic_model.table",
+          "is_selected": true,
+          "children": [
+            {
+              "display_name": "Customer Name",
+              "type": "semantic_model.column",
+              "is_selected": true
+            },
+            {
+              "display_name": "Region",
+              "type": "semantic_model.column",
+              "is_selected": true
+            },
+            {
+              "display_name": "Country Code",
+              "type": "semantic_model.column",
+              "is_selected": true
+            }
+          ]
+        },
+        {
+          "display_name": "Product",
+          "type": "semantic_model.table",
+          "is_selected": true,
+          "children": [
+            {
+              "display_name": "Product Name",
+              "type": "semantic_model.column",
+              "is_selected": true
+            },
+            {
+              "display_name": "Product Category",
+              "type": "semantic_model.column",
+              "is_selected": true
+            },
+            {
+              "display_name": "List Price",
+              "type": "semantic_model.column",
+              "is_selected": true
+            }
+          ]
+        },
+        {
+          "display_name": "Segment",
+          "type": "semantic_model.table",
+          "is_selected": true,
+          "children": [
+            {
+              "display_name": "Segment Name",
+              "type": "semantic_model.column",
+              "is_selected": true
+            },
+            {
+              "display_name": "Segment Description",
+              "type": "semantic_model.column",
+              "is_selected": true
+            }
+          ]
+        },
+        {
+          "display_name": "Order Date",
+          "type": "semantic_model.table",
+          "is_selected": true
+        },
+        {
+          "display_name": "Ship Date",
+          "type": "semantic_model.table",
+          "is_selected": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+table Segment
+	description: Customer segment dimension reached through the genuine customer-to-segment bridge.
+	lineageTag: 3f6549f5-e007-47f0-85f1-a98f63105554
+
+	column 'Segment Key'
+		dataType: string
+		isHidden
+		sourceColumn: SegmentKey
+		lineageTag: c0e35979-a0bf-4d67-a287-c0b1d13bfcdc
+		summarizeBy: none
+
+	column 'Segment Name'
+		dataType: string
+		sourceColumn: SegmentName
+		lineageTag: 857b0a6c-ac3d-469e-b494-6c57311e6f67
+		summarizeBy: none
+
+	column 'Segment Description'
+		dataType: string
+		description: Plain-language meaning of each synthetic POC segment.
+		sourceColumn: SegmentDescription
+		lineageTag: 9b9162f0-120c-4c55-9cd4-f77f5fb4daac
+		summarizeBy: none
+
+	partition Segment = entity
+		mode: directLake
+		source
+			entityName: GoldDimSegment
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Motorola Sales Certified",
+    "description": "Certified Direct Lake model over synthetic Motorola-style sales data."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "2771136f-63be-4aa0-aec4-2d0a3f91251e"
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/dataAgent/definition/stageConfiguration/1.0.0/schema.json",
+  "aiInstructions": "SYNTHETIC POC WARNING: All organizations, products, transactions, and terminology are generated examples, not Motorola definitions or data. PCR means Priority Communications Revenue only in this POC. Use only the Motorola Sales Certified semantic model. Prefer the certified Net Revenue, Order Count, and PCR Revenue measures. Respect row-level security and never remove or bypass the user's region filter. State the visible region in answers. Use Order Date by default when a date role is ambiguous and say so; use Ship Date when explicitly requested. Never expose hidden keys. Customer segments are many-to-many, so segment amounts are non-additive. Return concise answers with date and region context.",
+  "experimental": {}
+}

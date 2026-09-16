@@ -1,0 +1,59 @@
+{
+  "dataset": {
+    "generatorSeed": 130714,
+    "customers": 120,
+    "orders": 900,
+    "currency": "USD",
+    "dateRange": "2025-01-01 through 2025-12-31 order dates"
+  },
+  "tests": [
+    {
+      "id": "same-question-na",
+      "persona": "North America",
+      "role": "North America",
+      "prompt": "What are net revenue, PCR revenue, and order count for 2025?",
+      "expected": {
+        "region": "North America",
+        "netRevenue": 6737571.05,
+        "pcrRevenue": 1477389.30,
+        "orderCount": 300
+      },
+      "acceptance": "Answer contains only North America values and identifies PCR as synthetic POC terminology when expanding the acronym."
+    },
+    {
+      "id": "same-question-europe",
+      "persona": "Europe",
+      "role": "Europe",
+      "prompt": "What are net revenue, PCR revenue, and order count for 2025?",
+      "expected": {
+        "region": "Europe",
+        "netRevenue": 12893250.00,
+        "pcrRevenue": 2987650.25,
+        "orderCount": 600
+      },
+      "acceptance": "Answer contains only Europe values and identifies PCR as synthetic POC terminology when expanding the acronym."
+    },
+    {
+      "id": "role-playing-date",
+      "persona": "North America",
+      "role": "North America",
+      "prompt": "Show monthly net revenue by ship month, not order month.",
+      "expected": {
+        "dateRole": "Ship Date",
+        "resultShape": "month and Net Revenue"
+      },
+      "acceptance": "Uses Ship Date.Month and does not silently substitute Order Date.Month."
+    },
+    {
+      "id": "bridge-behavior",
+      "persona": "Europe",
+      "role": "Europe",
+      "prompt": "Compare PCR revenue with Public Safety segment revenue.",
+      "expected": {
+        "resultShape": "segment and Net Revenue",
+        "warning": "Segment amounts are non-additive because customers may have multiple segment assignments."
+      },
+      "acceptance": "Uses the bridge and does not claim segment totals are mutually exclusive."
+    }
+  ]
+}

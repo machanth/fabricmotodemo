@@ -1,0 +1,32 @@
+{
+  "solutionName": "moto-fabric-poc",
+  "createdResourceTag": "moto-fabric-poc",
+  "workspace": {
+    "id": "${FABRIC_WORKSPACE_ID}",
+    "name": "${FABRIC_WORKSPACE_NAME}",
+    "capacityId": "${FABRIC_CAPACITY_ID}"
+  },
+  "deployment": {
+    "itemsPath": "fabric",
+    "environment": "POC",
+    "createWorkspaceIfMissing": false
+  },
+  "shortcut": {
+    "enabled": true,
+    "lakehouseItemName": "MedallionLakehouse",
+    "path": "Files/landing/customer-domain",
+    "name": "external-customers",
+    "sourceType": "${SHORTCUT_SOURCE_TYPE}",
+    "connectionId": "${SHORTCUT_CONNECTION_ID}",
+    "location": "${SHORTCUT_LOCATION}",
+    "subpath": "${SHORTCUT_SUBPATH}"
+  },
+  "semanticModel": {
+    "name": "Motorola Sales Certified",
+    "endorsement": "Certified",
+    "rlsTestUsers": {
+      "North America": "na-demo@example.com",
+      "Europe": "eu-demo@example.com"
+    }
+  }
+}

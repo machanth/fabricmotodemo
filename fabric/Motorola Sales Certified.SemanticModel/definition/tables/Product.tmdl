@@ -1,0 +1,37 @@
+table Product
+	lineageTag: 528e8e6f-891f-4de3-9e4f-371536dbf6e4
+
+	column 'Product Key'
+		dataType: string
+		isHidden
+		sourceColumn: ProductKey
+		lineageTag: 639f660b-c657-4599-950a-d24f33789b46
+		summarizeBy: none
+
+	column 'Product Name'
+		dataType: string
+		sourceColumn: ProductName
+		lineageTag: 21c7b168-859f-4a00-ac96-2399ddf05ca6
+		summarizeBy: none
+
+	column 'Product Category'
+		dataType: string
+		sourceColumn: ProductCategory
+		lineageTag: 00de5351-279f-487a-a862-f4be1059f92e
+		summarizeBy: none
+
+	column 'List Price'
+		dataType: decimal
+		formatString: $#,0.00
+		sourceColumn: ListPrice
+		lineageTag: 09390905-db46-46bb-899f-bf29427b783e
+		summarizeBy: none
+
+	partition Product = entity
+		mode: directLake
+		source
+			entityName: GoldDimProduct
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table

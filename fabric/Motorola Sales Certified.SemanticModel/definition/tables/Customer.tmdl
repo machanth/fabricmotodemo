@@ -1,0 +1,38 @@
+table Customer
+	description: Business customer dimension. All names are generated and synthetic.
+	lineageTag: 386ae43d-fba9-47fe-bca5-2cc1c875ec51
+
+	column 'Customer Key'
+		dataType: string
+		isHidden
+		sourceColumn: CustomerKey
+		lineageTag: 62c7b171-6092-410c-bcc9-cba6b564c07a
+		summarizeBy: none
+
+	column 'Customer Name'
+		dataType: string
+		sourceColumn: CustomerName
+		lineageTag: 1d272d58-041e-46e1-ad0d-8dcba432c22b
+		summarizeBy: none
+
+	column Region
+		dataType: string
+		description: Geographic security boundary used by the POC RLS roles.
+		sourceColumn: Region
+		lineageTag: 59299629-5815-44e5-9347-bdc39b3ce63d
+		summarizeBy: none
+
+	column 'Country Code'
+		dataType: string
+		sourceColumn: CountryCode
+		lineageTag: a50e9eaa-3124-4ec8-b7a3-743c9a993468
+		summarizeBy: none
+
+	partition Customer = entity
+		mode: directLake
+		source
+			entityName: GoldDimCustomer
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table

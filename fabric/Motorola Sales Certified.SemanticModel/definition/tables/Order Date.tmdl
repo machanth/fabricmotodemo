@@ -1,0 +1,56 @@
+table 'Order Date'
+	description: Role-playing calendar for when an order was placed.
+	lineageTag: 481c0589-ed4f-4a1f-a0c3-69ee627a24bf
+
+	column 'Date Key'
+		dataType: int64
+		isHidden
+		sourceColumn: DateKey
+		lineageTag: 0548eb24-48fb-4dc9-a2e5-70b8befb931a
+		summarizeBy: none
+
+	column Date
+		dataType: dateTime
+		isKey
+		formatString: Short Date
+		sourceColumn: Date
+		lineageTag: b686f3fe-6ec7-49d3-b75b-d46e3de16653
+		summarizeBy: none
+
+	column Year
+		dataType: int64
+		formatString: 0
+		sourceColumn: Year
+		lineageTag: 2d803ac3-8400-4575-af5d-5502978cb8d3
+		summarizeBy: none
+
+	column 'Quarter Number'
+		dataType: int64
+		formatString: 0
+		sourceColumn: QuarterNumber
+		lineageTag: c80a9e36-16f1-4625-9b50-ce570415b2b6
+		summarizeBy: none
+
+	column 'Month Number'
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceColumn: MonthNumber
+		lineageTag: 86331385-bd96-4d2c-8101-fdf5a8d7afcf
+		summarizeBy: none
+
+	column Month
+		dataType: string
+		sourceColumn: MonthName
+		sortByColumn: 'Month Number'
+		lineageTag: 89c0b1b1-08ec-4b08-a034-465ef4d8a6b9
+		summarizeBy: none
+
+	partition 'Order Date' = entity
+		mode: directLake
+		source
+			entityName: GoldDimDate
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table

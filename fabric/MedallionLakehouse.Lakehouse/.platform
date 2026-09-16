@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Lakehouse",
+    "displayName": "MedallionLakehouse",
+    "description": "Motorola-style synthetic POC bronze, silver, and certified gold Delta tables."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "f4d8da11-52c1-4fbf-bcf4-bd9dd23110a4"
+  }
+}

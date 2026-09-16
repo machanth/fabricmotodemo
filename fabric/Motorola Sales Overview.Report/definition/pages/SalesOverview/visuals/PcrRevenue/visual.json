@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
+  "name": "PcrRevenue",
+  "position": {
+    "x": 320,
+    "y": 20,
+    "z": 1,
+    "height": 120,
+    "width": 280,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact Sales"
+                    }
+                  },
+                  "Property": "PCR Revenue"
+                }
+              },
+              "queryRef": "Fact Sales.PCR Revenue",
+              "nativeQueryRef": "PCR Revenue"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'PCR Revenue (synthetic POC term)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

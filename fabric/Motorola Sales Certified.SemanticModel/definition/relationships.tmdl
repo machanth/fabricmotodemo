@@ -1,0 +1,24 @@
+relationship 155ab62b-a60e-48fe-b085-23b53b63f542
+	fromColumn: 'Fact Sales'.'Customer Key'
+	toColumn: Customer.'Customer Key'
+
+relationship 902248ad-58e9-4eb2-af47-04d95cb1284b
+	fromColumn: 'Fact Sales'.'Product Key'
+	toColumn: Product.'Product Key'
+
+relationship cb9e8547-445b-41ce-89cc-e184752cc4ef
+	fromColumn: 'Fact Sales'.'Order Date'
+	toColumn: 'Order Date'.Date
+
+relationship 6324c500-cfc2-4791-b542-4415f7d11617
+	fromColumn: 'Fact Sales'.'Ship Date'
+	toColumn: 'Ship Date'.Date
+
+relationship 95133815-ef95-46e4-8353-5ea843b98c58
+	fromColumn: 'Customer Segment Bridge'.'Customer Key'
+	toColumn: Customer.'Customer Key'
+	crossFilteringBehavior: both
+
+relationship c4cb7cca-5360-4926-ac15-a421aa534967
+	fromColumn: 'Customer Segment Bridge'.'Segment Key'
+	toColumn: Segment.'Segment Key'

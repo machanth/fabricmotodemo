@@ -1,0 +1,43 @@
+table 'Customer Segment Bridge'
+	isHidden
+	description: Bridge grain is one effective customer-to-segment assignment; customers may belong to multiple segments.
+	lineageTag: 2076dbbd-e7ea-472b-af80-ef39247d58f7
+
+	column 'Customer Key'
+		dataType: string
+		isHidden
+		sourceColumn: CustomerKey
+		lineageTag: 65de28ee-eb81-4ab8-8c9d-d5533694c016
+		summarizeBy: none
+
+	column 'Segment Key'
+		dataType: string
+		isHidden
+		sourceColumn: SegmentKey
+		lineageTag: 03312de4-96fa-4acf-991c-e0757f041e82
+		summarizeBy: none
+
+	column 'Effective Date'
+		dataType: dateTime
+		isHidden
+		formatString: Short Date
+		sourceColumn: EffectiveDate
+		lineageTag: 6bfe0403-9231-46db-a97c-d97531edaf54
+		summarizeBy: none
+
+	column 'Expiration Date'
+		dataType: dateTime
+		isHidden
+		formatString: Short Date
+		sourceColumn: ExpirationDate
+		lineageTag: 3d76a6d6-aa52-42f6-9f6f-c661456073d0
+		summarizeBy: none
+
+	partition 'Customer Segment Bridge' = entity
+		mode: directLake
+		source
+			entityName: GoldBridgeCustomerSegment
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table

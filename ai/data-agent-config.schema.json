@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/fabric-motorola-poc/data-agent-config.schema.json",
+  "title": "POC Fabric data agent configuration",
+  "type": "object",
+  "required": [
+    "displayName",
+    "description",
+    "sourceBinding",
+    "approvedTables",
+    "instructionsFile",
+    "testCasesFile",
+    "deployment"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "displayName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sourceBinding": {
+      "type": "object",
+      "required": ["type", "workspaceId", "displayName", "itemId"],
+      "properties": {
+        "type": {
+          "const": "SemanticModel"
+        },
+        "workspaceId": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "itemId": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "approvedTables": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "instructionsFile": {
+      "type": "string"
+    },
+    "testCasesFile": {
+      "type": "string"
+    },
+    "deployment": {
+      "type": "object",
+      "required": [
+        "configurationApiStatus",
+        "publishApiStatus",
+        "requireHumanValidationBeforePublish"
+      ],
+      "properties": {
+        "configurationApiStatus": {
+          "const": "preview"
+        },
+        "publishApiStatus": {
+          "const": "preview"
+        },
+        "requireHumanValidationBeforePublish": {
+          "const": true
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

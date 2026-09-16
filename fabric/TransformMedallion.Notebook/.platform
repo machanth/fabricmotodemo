@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "TransformMedallion",
+    "description": "Idempotent transformation from the two synthetic source domains into queryable Delta tables."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "0ebf90fe-cd17-4b07-883c-e125ca749540"
+  }
+}

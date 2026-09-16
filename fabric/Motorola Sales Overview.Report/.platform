@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Motorola Sales Overview",
+    "description": "Thin report over the certified model; report authors select business fields without defining joins."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "57042231-dd8b-417c-8668-95e6e425f3ec"
+  }
+}
