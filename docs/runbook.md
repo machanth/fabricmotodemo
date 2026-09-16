@@ -92,6 +92,30 @@ Data-agent creation is GA; configuration management and publish APIs are preview
 
 ## 4. Governance and lineage
 
+For a recording-ready walkthrough of these controls, including a recommended Fabric
+domain and subdomain structure, use
+[the demo video runbook](demo-video-runbook.md).
+
+### Fabric domains
+
+For this single-workspace POC, create domain **Commercial Analytics**, subdomain
+**Sales Intelligence**, and assign `MaddysWS` to the subdomain. Domains classify
+workspaces and their items; they don't classify individual tables and don't grant data
+access. Keep the warehouse and customer sources as conceptual source domains unless
+they are moved into separate Fabric workspaces.
+
+1. Fabric admin opens **Admin portal → Domains → Create new domain**.
+2. Create `Commercial Analytics` and add the approved domain-admin group.
+3. Select **New subdomain** and create `Sales Intelligence`.
+4. Select **Assign workspaces → Assign by workspace name**, choose `MaddysWS`, and
+   confirm.
+5. Add the approved workspace-admin group as domain contributors.
+6. In OneLake Catalog, filter to the new domain/subdomain and verify all workspace
+   items carry the domain metadata.
+
+Domain assignment doesn't change item visibility or permissions. Avoid assignment by
+capacity when the capacity hosts unrelated workspaces.
+
 ### Fabric lineage and OneLake Catalog
 
 Open **Workspace → Lineage view** and capture the deployed chain. Expected Fabric-native item lineage is shortcut/notebook/lakehouse → semantic model → report. Fabric shows one upstream level outside a workspace and does not promise external ADLS/S3 object- or field-level lineage. Use `docs/field-traceability.csv` for auditable field mapping.

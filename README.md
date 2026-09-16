@@ -33,6 +33,7 @@ flowchart LR
 - **Thin report:** source-controlled enhanced PBIR with cards, a date chart, and cross-dimension customer/product detail requiring no report-authored joins.
 - **Ask the data:** an official source-controlled DataAgent draft definition, agent instructions, approved schema, test prompts, exact deterministic answers, and same-question RLS persona tests.
 - **Operations:** official `fabric-cicd` deployment, REST shortcut/job orchestration, preflight, post-deployment checks, safe state-based teardown, field traceability, governance evidence, and a repeatable CU load protocol.
+- **Demo guidance:** a timestamped [video recording runbook](docs/demo-video-runbook.md) covering architecture, Direct Lake, RLS, AI, Fabric domains, OneLake Catalog, endorsement, lineage, Purview, and Capacity Metrics.
 
 ## Local validation
 
@@ -57,7 +58,7 @@ The generator is deterministic; rerunning it produces the answer values in `ai/t
 
 Core deployment is idempotent for item IDs already recorded in `.fabric-deploy-state.json`; it refuses to update an unowned item or shortcut with a colliding name. Shortcut creation uses `CreateOrOverwrite` only for the recorded POC shortcut. State is checkpointed after every creation/deletion so interrupted deployment and teardown remain recoverable. Teardown deletes only recorded POC items after verifying their IDs, names, and types. It never deletes the workspace, capacity, cloud connection, or external storage.
 
-**Live deployment status:** not attempted from this repository because tenant credentials, workspace/capacity identifiers, cloud connection, and external storage coordinates are intentionally absent. No successful tenant deployment is claimed.
+**Live deployment status:** deployed and verified in the target POC tenant on 2026-09-15. Environment identifiers and credentials remain outside source control. See the deployment evidence in [the runbook](docs/runbook.md); tenant-specific UI governance actions must still be evidenced individually.
 
 ## Support boundary
 
