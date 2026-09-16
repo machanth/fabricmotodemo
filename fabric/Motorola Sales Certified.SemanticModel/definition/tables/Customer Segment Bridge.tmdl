@@ -1,6 +1,5 @@
 table 'Customer Segment Bridge'
 	isHidden
-	description: Bridge grain is one effective customer-to-segment assignment; customers may belong to multiple segments.
 	lineageTag: 2076dbbd-e7ea-472b-af80-ef39247d58f7
 
 	column 'Customer Key'

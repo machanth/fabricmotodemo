@@ -22,7 +22,7 @@ class RepositoryContractTests(unittest.TestCase):
         self.assertEqual(relationships.count("relationship "), 6)
         self.assertIn("'Customer Segment Bridge'.'Customer Key'", relationships)
         self.assertIn("'Customer Segment Bridge'.'Segment Key'", relationships)
-        self.assertIn("crossFilteringBehavior: both", relationships)
+        self.assertIn("crossFilteringBehavior: bothDirections", relationships)
         self.assertIn("'Order Date'.Date", relationships)
         self.assertIn("'Ship Date'.Date", relationships)
 

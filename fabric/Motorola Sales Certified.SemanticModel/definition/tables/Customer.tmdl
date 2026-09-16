@@ -1,5 +1,4 @@
 table Customer
-	description: Business customer dimension. All names are generated and synthetic.
 	lineageTag: 386ae43d-fba9-47fe-bca5-2cc1c875ec51
 
 	column 'Customer Key'
@@ -17,10 +16,11 @@ table Customer
 
 	column Region
 		dataType: string
-		description: Geographic security boundary used by the POC RLS roles.
 		sourceColumn: Region
 		lineageTag: 59299629-5815-44e5-9347-bdc39b3ce63d
 		summarizeBy: none
+
+		annotation Description = Geographic security boundary used by the POC RLS roles.
 
 	column 'Country Code'
 		dataType: string

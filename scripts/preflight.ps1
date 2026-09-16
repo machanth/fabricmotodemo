@@ -34,13 +34,10 @@ foreach ($file in $jsonFiles) {
 
 if ($RequireDeploymentTools) {
     $null = Get-RequiredEnvironmentValue "FABRIC_WORKSPACE_ID"
-    if (-not (Get-Command az -ErrorAction SilentlyContinue)) {
-        throw "Azure CLI is required. Install it and run 'az login'."
-    }
-    if (-not (Get-Command python -ErrorAction SilentlyContinue)) {
+    if (-not (Get-Command (Get-PocPython) -ErrorAction SilentlyContinue)) {
         throw "Python 3 is required."
     }
-    & python -c "import azure.identity, fabric_cicd"
+    & (Get-PocPython) -c "import azure.identity, azure.storage.filedatalake, fabric_cicd"
     if ($LASTEXITCODE -ne 0) {
         throw "Install official deployment dependencies: python -m pip install -r requirements-deploy.txt"
     }

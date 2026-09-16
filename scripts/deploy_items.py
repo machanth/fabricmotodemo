@@ -6,8 +6,21 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from azure.identity import AzureCliCredential
+import os
+
+from azure.identity import AzureCliCredential, ClientSecretCredential
 from fabric_cicd import FabricWorkspace, publish_all_items
+
+
+def get_credential():
+    values = [
+        os.environ.get("AZURE_TENANT_ID"),
+        os.environ.get("AZURE_CLIENT_ID"),
+        os.environ.get("AZURE_CLIENT_SECRET"),
+    ]
+    if all(values):
+        return ClientSecretCredential(*values)
+    return AzureCliCredential()
 
 
 def main() -> None:
@@ -23,7 +36,7 @@ def main() -> None:
         environment=args.environment,
         repository_directory=str(args.repository_directory.resolve()),
         item_type_in_scope=args.item_types,
-        token_credential=AzureCliCredential(),
+        token_credential=get_credential(),
     )
     publish_all_items(workspace)
 

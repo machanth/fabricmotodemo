@@ -1,6 +1,14 @@
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
+function Get-PocPython {
+    $virtualEnvironmentPython = Join-Path (Split-Path -Parent $PSScriptRoot) ".venv\Scripts\python.exe"
+    if (Test-Path -LiteralPath $virtualEnvironmentPython) {
+        return $virtualEnvironmentPython
+    }
+    return "python"
+}
+
 function Import-DotEnv {
     param([string]$Path = ".env")
     if (-not (Test-Path -LiteralPath $Path)) {
@@ -29,9 +37,9 @@ function Get-RequiredEnvironmentValue {
 }
 
 function Get-FabricToken {
-    $token = & az account get-access-token --resource "https://api.fabric.microsoft.com" --query accessToken -o tsv
+    $token = & (Get-PocPython) "$PSScriptRoot\get_token.py" "https://api.fabric.microsoft.com/.default"
     if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($token)) {
-        throw "Unable to acquire a Fabric token. Run 'az login' with an authorized identity."
+        throw "Unable to acquire a Fabric token. Set service-principal environment variables or run 'az login'."
     }
     return $token.Trim()
 }

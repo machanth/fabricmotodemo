@@ -1,5 +1,4 @@
 table 'Order Date'
-	description: Role-playing calendar for when an order was placed.
 	lineageTag: 481c0589-ed4f-4a1f-a0c3-69ee627a24bf
 
 	column 'Date Key'

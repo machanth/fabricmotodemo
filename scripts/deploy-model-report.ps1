@@ -32,11 +32,15 @@ if (Test-Path -LiteralPath $stagingRoot) {
 New-Item -ItemType Directory -Path $stagingRoot -Force | Out-Null
 Copy-Item -Recurse -Force "fabric\*" $stagingRoot
 
-$modelFile = Join-Path $stagingRoot "Motorola Sales Certified.SemanticModel\definition\model.tmdl"
+$modelFile = Join-Path $stagingRoot "Motorola Sales Certified.SemanticModel\definition\expressions.tmdl"
 $content = Get-Content -Raw -LiteralPath $modelFile
 $content = $content.Replace("{{LAKEHOUSE_SQL_ENDPOINT}}", $sqlEndpoint.connectionString)
 $content = $content.Replace("{{LAKEHOUSE_SQL_DATABASE}}", $sqlEndpoint.id)
-Set-Content -Encoding UTF8 -LiteralPath $modelFile -Value $content
+[System.IO.File]::WriteAllText(
+    (Resolve-Path -LiteralPath $modelFile),
+    $content,
+    (New-Object System.Text.UTF8Encoding($false))
+)
 
 $modelDescriptors = @(
     @{ displayName = "Motorola Sales Certified"; type = "SemanticModel" },
@@ -51,7 +55,7 @@ foreach ($descriptor in $modelDescriptors) {
 
 $deploymentExitCode = 0
 try {
-    & python "$PSScriptRoot\deploy_items.py" `
+    & (Get-PocPython) "$PSScriptRoot\deploy_items.py" `
         --workspace-id $workspaceId `
         --repository-directory $stagingRoot `
         --environment "POC" `
@@ -80,7 +84,11 @@ $agentContent = Get-Content -Raw -LiteralPath $agentSource
 $agentContent = $agentContent.Replace("00000000-0000-0000-0000-000000000000", $workspaceId)
 $agentDefinition = $agentContent | ConvertFrom-Json
 $agentDefinition.artifactId = $semanticModel.id
-$agentDefinition | ConvertTo-Json -Depth 30 | Set-Content -Encoding UTF8 -LiteralPath $agentSource
+[System.IO.File]::WriteAllText(
+    (Resolve-Path -LiteralPath $agentSource),
+    ($agentDefinition | ConvertTo-Json -Depth 30),
+    (New-Object System.Text.UTF8Encoding($false))
+)
 
 $existingAgent = Get-WorkspaceItem -WorkspaceId $workspaceId -DisplayName "Motorola Sales Agent" -Type "DataAgent"
 if ($null -ne $existingAgent -and -not (Test-StateOwnsItem -State $state -Item $existingAgent)) {
@@ -88,7 +96,7 @@ if ($null -ne $existingAgent -and -not (Test-StateOwnsItem -State $state -Item $
 }
 $agentExitCode = 0
 try {
-    & python "$PSScriptRoot\deploy_items.py" `
+    & (Get-PocPython) "$PSScriptRoot\deploy_items.py" `
         --workspace-id $workspaceId `
         --repository-directory $stagingRoot `
         --environment "POC" `

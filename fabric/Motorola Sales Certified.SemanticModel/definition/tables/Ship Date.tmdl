@@ -1,5 +1,4 @@
 table 'Ship Date'
-	description: Role-playing calendar for when an order shipped.
 	lineageTag: 4b15e91a-f326-4b66-a51f-dc5b6b944258
 
 	column 'Date Key'

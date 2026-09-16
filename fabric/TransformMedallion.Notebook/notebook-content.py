@@ -9,6 +9,7 @@
 # META     "lakehouse": {
 # META       "default_lakehouse": "f4d8da11-52c1-4fbf-bcf4-bd9dd23110a4",
 # META       "default_lakehouse_name": "MedallionLakehouse",
+# META       "default_lakehouse_workspace_id": "00000000-0000-0000-0000-000000000000",
 # META       "known_lakehouses": [
 # META         {
 # META           "id": "f4d8da11-52c1-4fbf-bcf4-bd9dd23110a4"
@@ -108,6 +109,12 @@ for source_name, (path, columns) in SOURCES.items():
     save_delta(frame, f"Bronze_{source_name}")
     bronze[source_name] = frame.drop("_ingested_at_utc")
 
+# METADATA ********************
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
 # CELL ********************
 
 assert_unique(bronze["products"], ["product_id"], "products")
@@ -188,6 +195,12 @@ for name, frame in {
 }.items():
     save_delta(frame, name)
 
+# METADATA ********************
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
 # CELL ********************
 
 fact_sales = (
@@ -242,3 +255,9 @@ result = {
     "goldTables": {name: frame.count() for name, frame in gold_tables.items()},
 }
 notebookutils.notebook.exit(str(result))
+
+# METADATA ********************
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }

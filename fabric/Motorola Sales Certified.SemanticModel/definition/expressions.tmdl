@@ -1,0 +1,12 @@
+expression DatabaseQuery =
+		let
+		    Source = Sql.Database(
+		        "{{LAKEHOUSE_SQL_ENDPOINT}}",
+		        "{{LAKEHOUSE_SQL_DATABASE}}",
+		        [CreateNavigationProperties = false]
+		    )
+		in
+		    Source
+	lineageTag: b2d19ee6-1e75-44f4-8aba-5fde70df5a8e
+
+	annotation PBI_NavigationStepName = Navigation

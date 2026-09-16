@@ -11,7 +11,7 @@ The operator needs Workspace Contributor (or higher for deployment), permission 
 
 Credentials are never required in source control. `AZURE_CLIENT_SECRET` is intentionally blank in `.env.example`; interactive Azure CLI authentication is preferred for the POC.
 
-Prepare the external domain by uploading only the three files under `sample-data\object-storage` to the configured ADLS/S3 path. Create a Fabric cloud connection for that location and grant the deployment/operator identity permission to use it. The other three CSVs are uploaded to OneLake by AzCopy.
+Prepare the external domain by uploading only the three files under `sample-data\object-storage` to the configured ADLS/S3 path. Create a Fabric cloud connection for that location and grant the deployment/operator identity permission to use it. The other three CSVs are uploaded to OneLake by the official Azure Storage SDK.
 
 ## 2. Automated deployment
 
@@ -28,7 +28,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\deploy.ps1
 
 1. Deploys lakehouse and notebook metadata with Microsoft `fabric-cicd`.
 2. Resolves the destination item IDs.
-3. Uses AzCopy to place warehouse-domain CSVs in `Files/landing/warehouse`.
+3. Uses the official Azure Storage SDK to place warehouse-domain CSVs in `Files/landing/warehouse`.
 4. Creates/updates `Files/landing/customer-domain/external-customers` with the official shortcut REST API.
 5. Submits the notebook, which overwrites only this POC's named Bronze/Silver/Gold Delta tables after referential-integrity checks.
 6. Records created item IDs in ignored `.fabric-deploy-state.json`.

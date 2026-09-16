@@ -51,7 +51,7 @@ The generator is deterministic; rerunning it produces the answer values in `ai/t
 1. Copy `.env.example` to `.env`, fill only the values listed in [the runbook](docs/runbook.md), and authenticate `az login`.
 2. Install Microsoft-supported deployment tooling: `python -m pip install -r requirements-deploy.txt`.
 3. Upload `sample-data\object-storage` to the configured ADLS Gen2/S3 path and create its Fabric cloud connection.
-4. Run `scripts\deploy.ps1`. This deploys metadata, uploads warehouse-domain files with AzCopy, creates the external shortcut, and submits the medallion notebook.
+4. Run `scripts\deploy.ps1`. This deploys metadata, uploads warehouse-domain files with the official Azure Storage SDK, creates the external shortcut, and submits the medallion notebook.
 5. After the notebook succeeds, run `scripts\deploy-model-report.ps1`, then `scripts\verify-deployment.ps1`. This deploys the model, report, and DataAgent draft; publishing the agent remains a deliberate UI step.
 6. Complete the tenant/UI-only controls and evidence checklist in [docs/runbook.md](docs/runbook.md).
 

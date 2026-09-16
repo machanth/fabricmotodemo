@@ -3,18 +3,21 @@ table 'Fact Sales'
 
 	measure 'Net Revenue' = SUM('Fact Sales'[Net Revenue Amount])
 		formatString: $#,0.00;($#,0.00);$#,0.00
-		description: Net sales revenue after line-level discount, using synthetic POC data.
 		lineageTag: 03aa9b27-a437-49cd-9151-eb7953d31de2
+
+		annotation Description = Net sales revenue after line-level discount, using synthetic POC data.
 
 	measure 'Order Count' = DISTINCTCOUNT('Fact Sales'[Order Key])
 		formatString: #,0
-		description: Distinct customer orders in the current filter context.
 		lineageTag: 49ce3672-3588-49ea-b336-956288342a82
+
+		annotation Description = Distinct customer orders in the current filter context.
 
 	measure 'PCR Revenue' = CALCULATE([Net Revenue], KEEPFILTERS(Segment[Segment Name] = "Priority Communications"))
 		formatString: $#,0.00;($#,0.00);$#,0.00
-		description: Priority Communications Revenue. PCR is synthetic terminology created only for this POC.
 		lineageTag: d031d861-df9e-49de-8b5f-b01412365da1
+
+		annotation Description = Priority Communications Revenue. PCR is synthetic terminology created only for this POC.
 
 	column 'Order Line Key'
 		dataType: string

@@ -29,8 +29,7 @@ if ([string]::IsNullOrWhiteSpace($environmentName)) {
 }
 
 $coreDescriptors = @(
-    @{ displayName = "MedallionLakehouse"; type = "Lakehouse" },
-    @{ displayName = "TransformMedallion"; type = "Notebook" }
+    @{ displayName = "MedallionLakehouse"; type = "Lakehouse" }
 )
 foreach ($descriptor in $coreDescriptors) {
     $existing = Get-WorkspaceItem -WorkspaceId $workspaceId -DisplayName $descriptor.displayName -Type $descriptor.type
@@ -42,11 +41,11 @@ foreach ($descriptor in $coreDescriptors) {
 Write-Host "Deploying lakehouse and notebook metadata..."
 $deploymentExitCode = 0
 try {
-    & python "$PSScriptRoot\deploy_items.py" `
+    & (Get-PocPython) "$PSScriptRoot\deploy_items.py" `
         --workspace-id $workspaceId `
         --repository-directory "fabric" `
         --environment $environmentName `
-        --item-types Lakehouse Notebook
+        --item-types Lakehouse
     $deploymentExitCode = $LASTEXITCODE
 }
 finally {
@@ -63,18 +62,40 @@ if ($deploymentExitCode -ne 0) {
 }
 
 $lakehouse = Get-WorkspaceItem -WorkspaceId $workspaceId -DisplayName "MedallionLakehouse" -Type "Lakehouse"
-$notebook = Get-WorkspaceItem -WorkspaceId $workspaceId -DisplayName "TransformMedallion" -Type "Notebook"
-if ($null -eq $lakehouse -or $null -eq $notebook) {
-    throw "Deployed lakehouse or notebook could not be resolved."
+if ($null -eq $lakehouse) {
+    throw "Deployed lakehouse could not be resolved."
+}
+$existingNotebook = Get-WorkspaceItem -WorkspaceId $workspaceId -DisplayName "TransformMedallion" -Type "Notebook"
+if ($null -ne $existingNotebook -and -not (Test-StateOwnsItem -State $state -Item $existingNotebook)) {
+    throw "Refusing to update pre-existing Notebook 'TransformMedallion'."
+}
+try {
+    & (Get-PocPython) "$PSScriptRoot\deploy_notebook.py" `
+        --workspace-id $workspaceId `
+        --lakehouse-id $lakehouse.id `
+        --source "fabric\TransformMedallion.Notebook\notebook-content.py" `
+        --platform "fabric\TransformMedallion.Notebook\.platform"
+    if ($LASTEXITCODE -ne 0) {
+        throw "Notebook deployment failed."
+    }
+}
+finally {
+    $notebook = Get-WorkspaceItem -WorkspaceId $workspaceId -DisplayName "TransformMedallion" -Type "Notebook"
+    if ($null -ne $notebook) {
+        Add-OwnedItemToState -State $state -Item $notebook
+        Save-PocDeploymentState -State $state -Path $statePath
+    }
+}
+if ($null -eq $notebook) {
+    throw "Deployed notebook could not be resolved."
 }
 
 if (-not $SkipWarehouseUpload) {
-    if (-not (Get-Command azcopy -ErrorAction SilentlyContinue)) {
-        throw "AzCopy is required to upload warehouse-domain files. Install AzCopy or rerun with -SkipWarehouseUpload after uploading sample-data\warehouse manually."
-    }
-    [Environment]::SetEnvironmentVariable("AZCOPY_AUTO_LOGIN_TYPE", "AZCLI", "Process")
-    $destination = "https://onelake.dfs.fabric.microsoft.com/$workspaceId/$($lakehouse.id)/Files/landing/warehouse"
-    & azcopy copy "sample-data\warehouse\*" $destination --recursive=false
+    & (Get-PocPython) "$PSScriptRoot\upload_datalake.py" `
+        --account-url "https://onelake.dfs.fabric.microsoft.com" `
+        --filesystem $workspaceId `
+        --destination "$($lakehouse.id)/Files/landing/warehouse" `
+        --source "sample-data\warehouse"
     if ($LASTEXITCODE -ne 0) {
         throw "Warehouse-domain source upload failed."
     }

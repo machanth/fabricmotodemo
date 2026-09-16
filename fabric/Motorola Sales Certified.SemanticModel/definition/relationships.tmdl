@@ -17,7 +17,7 @@ relationship 6324c500-cfc2-4791-b542-4415f7d11617
 relationship 95133815-ef95-46e4-8353-5ea843b98c58
 	fromColumn: 'Customer Segment Bridge'.'Customer Key'
 	toColumn: Customer.'Customer Key'
-	crossFilteringBehavior: both
+	crossFilteringBehavior: bothDirections
 
 relationship c4cb7cca-5360-4926-ac15-a421aa534967
 	fromColumn: 'Customer Segment Bridge'.'Segment Key'

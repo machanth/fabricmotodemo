@@ -1,5 +1,4 @@
 table Segment
-	description: Customer segment dimension reached through the genuine customer-to-segment bridge.
 	lineageTag: 3f6549f5-e007-47f0-85f1-a98f63105554
 
 	column 'Segment Key'
@@ -17,10 +16,11 @@ table Segment
 
 	column 'Segment Description'
 		dataType: string
-		description: Plain-language meaning of each synthetic POC segment.
 		sourceColumn: SegmentDescription
 		lineageTag: 9b9162f0-120c-4c55-9cd4-f77f5fb4daac
 		summarizeBy: none
+
+		annotation Description = Plain-language meaning of each synthetic POC segment.
 
 	partition Segment = entity
 		mode: directLake
