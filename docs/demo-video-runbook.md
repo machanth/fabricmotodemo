@@ -1,8 +1,13 @@
 # Demo video recording runbook
 
-This script produces a 12-15 minute evidence-based demo of the deployed Motorola-style
-Microsoft Fabric POC. All organizations, products, transactions, and **PCR ("Priority
-Communications Revenue")** terminology are synthetic.
+This script produces a 12-15 minute evidence-based, text-to-speech demo of the deployed
+Motorola-style Microsoft Fabric POC. All organizations, products, transactions, and
+**PCR ("Priority Communications Revenue")** terminology are synthetic.
+
+The quoted paragraphs are the complete voiceover. Spoken transitions such as "Now I'm
+going to open..." replace production directions so the narration remains natural while
+the presenter performs the matching action. Pause the text-to-speech playback after a
+transition when the interface needs time to load.
 
 ## 1. Prepare before recording
 
@@ -36,76 +41,72 @@ pause recording, complete section 7, and then record the governance chapter.
 
 ## 2. Opening and business problem (0:00-0:45)
 
-**Show:** The `Motorola Sales Overview` report title page or the workspace item list.
-
-**Say:**
-
 > This is a synthetic Microsoft Fabric proof of concept for complex sales analytics,
 > governed self-service reporting, and conversational data access. It combines a
 > warehouse-style order domain with an ADLS customer domain without exposing
 > proprietary data. Business users consume a certified semantic layer and never create
 > joins themselves.
+>
+> Now I'm going to open the MaddysWS workspace and the Motorola Sales Overview report
+> to begin the demonstration.
 
 Add a small on-screen caption: **Synthetic POC data - not Motorola production data**.
 
 ## 3. Architecture and source domains (0:45-2:00)
 
-**Show:** The Mermaid architecture in `README.md`, then the lakehouse explorer.
-
-**Actions:**
-
-1. Expand **Files → landing → warehouse** and show `orders.csv`, `order_lines.csv`,
-   and `products.csv`.
-2. Expand **Files → landing → customer-domain → external-customers** and show
-   `customers.csv`, `segments.csv`, and `customer_segment_assignments.csv`.
-3. Open shortcut details and show that the customer files are referenced through the
-   external ADLS shortcut rather than copied manually into the landing folder.
-
-**Say:**
-
+> Now I'm going to show the solution architecture and then open the Medallion
+> Lakehouse.
+>
 > The first source domain simulates warehouse orders, order lines, and products. The
 > second simulates customer, segment, and many-to-many assignment data in ADLS Gen2.
 > The OneLake shortcut gives Fabric a governed reference to that external location.
+>
+> First, I'm expanding Files, landing, and warehouse. Here we can see orders, order
+> lines, and products.
+>
+> Next, I'm expanding Files, landing, customer domain, and external customers. Here we
+> can see customers, segments, and customer segment assignments.
+>
+> Now I'm opening the shortcut details. These customer files are referenced through
+> the external ADLS shortcut rather than manually copied into the landing folder.
 
 Do not open the connection credential page during recording.
 
 ## 4. Medallion transformation and data quality (2:00-3:15)
 
-**Show:** `TransformMedallion`, then **Monitor**.
-
-**Actions:**
-
-1. Briefly show the typed CSV schemas and fail-fast duplicate/orphan checks.
-2. Show the successful notebook run.
-3. Return to the lakehouse and expand the Bronze, Silver, and Gold tables.
-4. Open `goldfactsales` and `golddimsegment` previews.
-
-**Say:**
-
+> Now I'm going to open the Transform Medallion notebook and briefly show its typed
+> schemas and fail-fast duplicate and orphan checks.
+>
 > The notebook validates keys and referential integrity before writing Delta. Six
 > Bronze tables preserve ingestion, six Silver tables standardize business data, and
 > six Gold tables provide the star schema. The customer-segment assignment remains a
 > genuine bridge instead of flattening away the many-to-many relationship.
+>
+> Now I'm opening Monitor to show the successful production notebook run.
+>
+> Next, I'm returning to the lakehouse and expanding the Bronze, Silver, and Gold
+> tables. Finally, I'm opening the Gold Fact Sales and Gold Dimension Segment previews
+> to show the analytics-ready Delta data.
 
 ## 5. Certified semantic layer and thin report (3:15-5:30)
 
-**Show:** The semantic model relationship diagram, then the report.
-
-**Actions:**
-
-1. Point out `Fact Sales`, `Customer`, `Product`, `Segment`, and the customer-segment
-   bridge.
-2. Show **Order Date** and **Ship Date** as role-playing dimensions.
-3. Show business-friendly fields and the hidden technical keys.
-4. Show measures **Net Revenue**, **PCR Revenue**, and **Order Count**.
-5. Open the report and interact with a product/segment/date filter.
-
-**Say:**
-
+> Now I'm going to open the Motorola Sales Certified semantic model and its
+> relationship diagram.
+>
+> Here we can see Fact Sales, Customer, Product, Segment, and the customer-segment
+> bridge. We can also see Order Date and Ship Date, which are two roles played by the
+> same date dimension.
+>
 > Direct Lake reads the Gold Delta tables without importing a second copy. The model
 > owns every relationship, including bidirectional propagation through the bridge and
 > two roles for the date dimension. The thin report contains presentation only, so
 > users drag and drop approved fields without recreating joins.
+>
+> Now I'm showing the business-friendly fields, hidden technical keys, and the Net
+> Revenue, PCR Revenue, and Order Count measures.
+>
+> Next, I'm opening the report and selecting product, segment, and date filters to
+> demonstrate that all visuals use the centrally managed model relationships.
 
 Show the refresh history entry for request
 `ca57251d-84de-42f5-b41a-b5baf6cf7ee5` and call out **DirectLakeFraming -
@@ -115,43 +116,44 @@ Completed**.
 
 ### RLS
 
-**Actions:**
-
-1. Open semantic model **Security** and show the North America and Europe role names.
-   Avoid exposing personal email addresses; use demo security groups if possible.
-2. Use **Test as role** or sign in with each Viewer persona.
-3. Ask the same question for both personas:
-
-   > What are net revenue, PCR revenue, and order count?
-
-4. Capture the expected scoped answers:
-
-| Persona | Net revenue | PCR revenue | Order count |
-|---|---:|---:|---:|
-| North America | $6,737,571.05 | $1,477,389.30 | 300 |
-| Europe | $12,893,250.00 | $2,987,650.25 | 600 |
-
-**Say:**
-
+> Now I'm opening semantic model Security to show the North America and Europe roles.
+> Personal email addresses are hidden during this demonstration.
+>
+> First, I'm testing as the North America Viewer persona and asking: What are net
+> revenue, PCR revenue, and order count?
+>
+> The North America result is 6 million, 737 thousand, 571 dollars and 5 cents in net
+> revenue; 1 million, 477 thousand, 389 dollars and 30 cents in PCR revenue; and 300
+> orders.
+>
+> Now I'm testing as the Europe Viewer persona and asking the exact same question.
+>
+> The Europe result is 12 million, 893 thousand, 250 dollars in net revenue; 2 million,
+> 987 thousand, 650 dollars and 25 cents in PCR revenue; and 600 orders.
+>
 > The question is identical. The effective identity changes, and semantic-model RLS
 > applies the regional filter. Elevated workspace roles bypass RLS, which is why these
 > tests use Viewer identities.
 
 ### Fabric data agent and Copilot
 
-**Actions:**
-
-1. Open `Motorola Sales Agent`.
-2. Show `Motorola Sales Certified` as its approved source.
-3. Show the instruction defining PCR.
-4. Ask: **What does PCR mean, and what is PCR revenue for my region?**
-5. Show generated reasoning/query details if the tenant UI exposes them.
-
-**Say:**
-
+> Now I'm going to open the Motorola Sales Agent.
+>
+> Here we can see that Motorola Sales Certified is its approved source. I'm also
+> showing the instruction that defines PCR.
+>
 > PCR means Priority Communications Revenue, a synthetic term created only for this
 > POC. The agent is grounded in the approved model rather than raw landing data, so it
 > inherits business definitions, relationships, and security.
+>
+> Now I'm asking: What does PCR mean, and what is PCR revenue for my region?
+>
+> The answer uses the approved business definition and respects the current user's
+> regional security context. Where available, I'm also showing the generated query
+> details for transparency.
+>
+> If standalone Copilot is enabled, I'm now opening it and selecting the approved
+> semantic model to repeat the same prompt.
 
 If standalone Copilot is enabled, repeat the prompt there and show the approved-model
 badge. Otherwise state on-screen that standalone Copilot requires the tenant setting
@@ -195,10 +197,12 @@ As Fabric admin:
 9. Optionally set a domain image and add the approved workspace-admin group as domain
    contributors.
 
-**Record:** The domain hierarchy, assigned workspace, and domain metadata on an item.
-
-**Say:**
-
+> Now I'm opening the Fabric Admin portal and selecting Domains.
+>
+> Here is the Commercial Analytics domain, its Sales Intelligence subdomain, and the
+> MaddysWS workspace assignment. I'm also showing the domain metadata inherited by a
+> workspace item.
+>
 > Domains provide federated organization and governance. The workspace assignment makes
 > every POC item discoverable under Sales Intelligence, while access still comes from
 > workspace roles and item permissions. Domain admins can also manage delegated tenant
@@ -211,26 +215,23 @@ unrelated workspaces.
 
 ### Catalog and endorsement
 
-**Actions:**
-
-1. Open **OneLake catalog → Explore**.
-2. Filter **Domain → Commercial Analytics → Sales Intelligence**.
-3. Search for `Motorola Sales Certified`.
-4. Open its in-context details and show description, owner, endorsement, and lineage.
-5. Show these intended badges:
-   - `MedallionLakehouse`: **Promoted**
-   - `Motorola Sales Certified`: **Certified**
-   - `Motorola Sales Overview`: **Promoted** or **Certified**, per policy
-6. Open **Govern** and show recommended governance actions.
-7. Open **Secure** and show the centralized workspace/OneLake security posture without
-   exposing personal identities.
-
-**Say:**
-
+> Now I'm opening OneLake Catalog and selecting Explore.
+>
+> I'm filtering to the Commercial Analytics domain and Sales Intelligence subdomain,
+> then searching for Motorola Sales Certified.
+>
 > The domain filter makes governed assets easier to discover. Promotion indicates
 > owner readiness; certification requires an authorized reviewer and signals that the
 > semantic model meets organizational standards. Domain assignment itself does not
 > provide access.
+>
+> Now I'm opening the model details to show its description, owner, endorsement, and
+> lineage. The Medallion Lakehouse is promoted, the Motorola Sales Certified semantic
+> model is certified, and the Motorola Sales Overview report is promoted or certified
+> according to tenant policy.
+>
+> Next, I'm opening the Govern tab to show recommended governance actions, followed by
+> the Secure tab to show the centralized workspace and OneLake security posture.
 
 If certification is not enabled, show **Request certification** and say that a Fabric
 admin must enable certification and configure reviewer groups. Do not claim the item is
@@ -238,19 +239,18 @@ certified until the badge is visible.
 
 ### Native lineage
 
-**Actions:**
-
-1. Open **MaddysWS → Lineage view**.
-2. Select the semantic model card and choose its lineage highlight control.
-3. Show the chain from lakehouse/notebook through semantic model to report.
-4. Open item **Impact analysis** if downstream impact is useful.
-
-**Say:**
-
+> Now I'm returning to MaddysWS and opening Lineage view.
+>
+> I'm selecting the semantic model and highlighting its lineage. This shows the chain
+> from the lakehouse and notebook through the semantic model to the report.
+>
 > Workspace lineage explains dependencies and change impact. Fabric displays upstream
 > sources outside the workspace only one level up. The ADLS object-to-shortcut
 > traceability is documented separately because Fabric does not promise automatic
 > field-level lineage across that external boundary.
+>
+> Where useful, I'm also opening Impact analysis to show the downstream effect of a
+> proposed change.
 
 If Purview has been configured, show the Fabric and ADLS assets and latest successful
 scan. Label any manually correlated external-source connection as traceability evidence,
@@ -258,17 +258,13 @@ not automatically stitched subitem lineage.
 
 ## 9. Capacity and operational evidence (12:15-13:15)
 
-**Show:** Microsoft Fabric Capacity Metrics **Compute** page.
-
-**Actions:**
-
-1. Filter to the POC capacity and `MaddysWS`.
-2. Filter to the recording/load-test time window.
-3. Drill into notebook and semantic-model operations.
-4. Show CU seconds, operation type, billing status, and timestamps.
-
-**Say:**
-
+> Now I'm opening the Microsoft Fabric Capacity Metrics app and selecting the Compute
+> page.
+>
+> I'm filtering to the POC capacity, the MaddysWS workspace, and the recording or load
+> test time window. Next, I'm drilling into the notebook and semantic-model operations
+> to show CU seconds, operation type, billing status, and timestamps.
+>
 > Capacity Metrics attributes consumption to the workspace, item, and operation. The
 > repeatable load script records run IDs and UTC timestamps so the demo activity can be
 > correlated to CU usage after the normal telemetry delay.
@@ -279,10 +275,9 @@ If telemetry hasn't arrived, show the generated
 
 ## 10. Close (13:15-14:00)
 
-**Show:** Report, then OneLake Catalog details for the semantic model.
-
-**Say:**
-
+> To close the demonstration, I'm returning to the Motorola Sales Overview report and
+> then opening the semantic model details in OneLake Catalog.
+>
 > This POC demonstrates an end-to-end Fabric path: external and warehouse-style
 > sources, governed OneLake access, validated medallion Delta tables, a reusable Direct
 > Lake semantic model, RLS-aware reporting and AI, domain-based discovery, lineage,
