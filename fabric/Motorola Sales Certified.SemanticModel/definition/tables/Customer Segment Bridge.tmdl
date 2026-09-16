@@ -35,7 +35,7 @@ table 'Customer Segment Bridge'
 	partition 'Customer Segment Bridge' = entity
 		mode: directLake
 		source
-			entityName: GoldBridgeCustomerSegment
+			entityName: goldbridgecustomersegment
 			schemaName: dbo
 			expressionSource: DatabaseQuery
 

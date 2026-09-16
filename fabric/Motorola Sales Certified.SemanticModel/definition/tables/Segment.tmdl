@@ -25,7 +25,7 @@ table Segment
 	partition Segment = entity
 		mode: directLake
 		source
-			entityName: GoldDimSegment
+			entityName: golddimsegment
 			schemaName: dbo
 			expressionSource: DatabaseQuery
 

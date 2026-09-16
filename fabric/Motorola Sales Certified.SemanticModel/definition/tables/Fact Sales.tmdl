@@ -108,7 +108,7 @@ table 'Fact Sales'
 	partition 'Fact Sales' = entity
 		mode: directLake
 		source
-			entityName: GoldFactSales
+			entityName: goldfactsales
 			schemaName: dbo
 			expressionSource: DatabaseQuery
 

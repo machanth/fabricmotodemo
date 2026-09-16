@@ -39,6 +39,26 @@ class RepositoryContractTests(unittest.TestCase):
         self.assertIn('Customer[Region] = "North America"', roles)
         self.assertIn('Customer[Region] = "Europe"', roles)
 
+    def test_direct_lake_entities_use_spark_catalog_names(self) -> None:
+        entity_names = []
+        for path in (MODEL / "tables").glob("*.tmdl"):
+            entity_names.extend(
+                re.findall(r"^\s*entityName:\s*(\S+)\s*$", path.read_text(encoding="utf-8"), re.MULTILINE)
+            )
+        self.assertEqual(len(entity_names), 7)
+        self.assertTrue(all(name == name.lower() for name in entity_names))
+        self.assertEqual(
+            set(entity_names),
+            {
+                "goldbridgecustomersegment",
+                "golddimcustomer",
+                "golddimdate",
+                "golddimproduct",
+                "golddimsegment",
+                "goldfactsales",
+            },
+        )
+
     def test_expected_rls_answers_match_committed_sample(self) -> None:
         with (ROOT / "sample-data" / "warehouse" / "orders.csv").open(
             newline="", encoding="utf-8"

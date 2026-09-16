@@ -95,11 +95,12 @@ def assert_no_orphans(child: DataFrame, child_key: str, parent: DataFrame, paren
 
 
 def save_delta(frame: DataFrame, table_name: str) -> None:
+    physical_name = table_name.lower()
     (
         frame.write.format("delta")
         .mode("overwrite")
         .option("overwriteSchema", "true")
-        .saveAsTable(table_name)
+        .saveAsTable(physical_name)
     )
 
 

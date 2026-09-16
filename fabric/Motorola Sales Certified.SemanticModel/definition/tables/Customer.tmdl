@@ -31,7 +31,7 @@ table Customer
 	partition Customer = entity
 		mode: directLake
 		source
-			entityName: GoldDimCustomer
+			entityName: golddimcustomer
 			schemaName: dbo
 			expressionSource: DatabaseQuery
 

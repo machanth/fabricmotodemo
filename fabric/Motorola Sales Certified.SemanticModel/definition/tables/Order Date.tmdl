@@ -48,7 +48,7 @@ table 'Order Date'
 	partition 'Order Date' = entity
 		mode: directLake
 		source
-			entityName: GoldDimDate
+			entityName: golddimdate
 			schemaName: dbo
 			expressionSource: DatabaseQuery
 

@@ -30,7 +30,7 @@ table Product
 	partition Product = entity
 		mode: directLake
 		source
-			entityName: GoldDimProduct
+			entityName: golddimproduct
 			schemaName: dbo
 			expressionSource: DatabaseQuery
 
