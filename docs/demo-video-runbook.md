@@ -9,6 +9,9 @@ going to open..." replace production directions so the narration remains natural
 the presenter performs the matching action. Pause the text-to-speech playback after a
 transition when the interface needs time to load.
 
+[Download the complete prerecorded narration](audio/fabric-demo-complete.wav), or use
+the individual chapter recordings linked below.
+
 ## 1. Prepare before recording
 
 Use a Fabric admin or domain admin for the governance segment and a workspace
@@ -56,6 +59,8 @@ Add a small on-screen caption: **Synthetic POC data - not Motorola production da
 
 ## 3. Architecture and source domains (0:45-2:00)
 
+[Download the prerecorded Step 3 narration](audio/fabric-demo-step-3.wav).
+
 > Now I'm going to show the solution architecture and then open the Medallion
 > Lakehouse.
 >
@@ -76,6 +81,8 @@ Do not open the connection credential page during recording.
 
 ## 4. Medallion transformation and data quality (2:00-3:15)
 
+[Download the prerecorded Step 4 narration](audio/fabric-demo-step-4.wav).
+
 > Now I'm going to open the Transform Medallion notebook and briefly show its typed
 > schemas and fail-fast duplicate and orphan checks.
 >
@@ -91,6 +98,8 @@ Do not open the connection credential page during recording.
 > to show the analytics-ready Delta data.
 
 ## 5. Certified semantic layer and thin report (3:15-5:30)
+
+[Download the prerecorded Step 5 narration](audio/fabric-demo-step-5.wav).
 
 > Now I'm going to open the Motorola Sales Certified semantic model and its
 > relationship diagram.
@@ -115,6 +124,8 @@ Show the refresh history entry for request
 Completed**.
 
 ## 6. RLS and ask-the-data experience (5:30-7:45)
+
+[Download the prerecorded Step 6 narration](audio/fabric-demo-step-6.wav).
 
 ### RLS
 
@@ -162,6 +173,8 @@ badge. Otherwise state on-screen that standalone Copilot requires the tenant set
 and approved-for-Copilot configuration; do not imply it is active.
 
 ## 7. Governance with Fabric domains (7:45-10:15)
+
+[Download the prerecorded Step 7 narration](audio/fabric-demo-step-7.wav).
 
 ### Recommended domain structure
 
@@ -215,6 +228,8 @@ unrelated workspaces.
 
 ## 8. OneLake Catalog, endorsement, security, and lineage (10:15-12:15)
 
+[Download the prerecorded Step 8 narration](audio/fabric-demo-step-8.wav).
+
 ### Catalog and endorsement
 
 > Now I'm opening OneLake Catalog and selecting Explore.
@@ -260,6 +275,8 @@ not automatically stitched subitem lineage.
 
 ## 9. Capacity and operational evidence (12:15-13:15)
 
+[Download the prerecorded Step 9 narration](audio/fabric-demo-step-9.wav).
+
 > Now I'm opening the Microsoft Fabric Capacity Metrics app and selecting the Compute
 > page.
 >
@@ -276,6 +293,8 @@ If telemetry hasn't arrived, show the generated
 10-15 minutes.
 
 ## 10. Close (13:15-14:00)
+
+[Download the prerecorded Step 10 narration](audio/fabric-demo-step-10.wav).
 
 > To close the demonstration, I'm returning to the Motorola Sales Overview report and
 > then opening the semantic model details in OneLake Catalog.
