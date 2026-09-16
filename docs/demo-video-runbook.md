@@ -41,6 +41,8 @@ pause recording, complete section 7, and then record the governance chapter.
 
 ## 2. Opening and business problem (0:00-0:45)
 
+[Download the prerecorded Step 2 narration](audio/fabric-demo-step-2.wav).
+
 > This is a synthetic Microsoft Fabric proof of concept for complex sales analytics,
 > governed self-service reporting, and conversational data access. It combines a
 > warehouse-style order domain with an ADLS customer domain without exposing
