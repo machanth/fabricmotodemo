@@ -1,6 +1,6 @@
-# Microsoft Fabric Motorola RFP proof of concept
+# Microsoft Fabric sales analytics proof of concept
 
-Production-oriented, source-controlled Fabric POC for synthetic sales analysis, ask-the-data experiences, governance, and capacity evidence. **No Motorola, customer, proprietary, or sensitive data is included.** Product names, organizations, transactions, and the acronym **PCR ("Priority Communications Revenue") are synthetic POC constructs**.
+Production-oriented, source-controlled Fabric POC for synthetic sales analysis, ask-the-data experiences, governance, and capacity evidence. **No customer, proprietary, or sensitive data is included.** Product names, organizations, transactions, and the acronym **PCR ("Priority Communications Revenue") are synthetic POC constructs**.
 
 ```mermaid
 flowchart LR
@@ -34,7 +34,6 @@ flowchart LR
 - **Ask the data:** an official source-controlled DataAgent draft definition, agent instructions, approved schema, test prompts, exact deterministic answers, and same-question RLS persona tests.
 - **Fabric IQ ontology:** a source-controlled Generation 2 ontology shell and an exact Ontology Agent workflow that binds business entities and governed DAX metrics to the existing certified semantic model.
 - **Operations:** official `fabric-cicd` deployment, REST shortcut/job orchestration, preflight, post-deployment checks, safe state-based teardown, field traceability, governance evidence, and a repeatable CU load protocol.
-- **Demo guidance:** a timestamped [video recording runbook](docs/demo-video-runbook.md) covering architecture, Direct Lake, RLS, AI, Fabric domains, OneLake Catalog, endorsement, lineage, Purview, and Capacity Metrics.
 
 ## Local validation
 

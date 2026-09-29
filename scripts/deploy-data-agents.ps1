@@ -35,25 +35,25 @@ function Get-ConfiguredItem {
 $semanticModel = Get-ConfiguredItem `
     -EnvironmentName "FABRIC_SEMANTIC_MODEL_ID" `
     -Type "SemanticModel" `
-    -DisplayNames @("Sales Certified", "Motorola Sales Certified")
+    -DisplayNames @("Sales Certified")
 $semanticAgent = Get-ConfiguredItem `
     -EnvironmentName "FABRIC_SEMANTIC_AGENT_ID" `
     -Type "DataAgent" `
-    -DisplayNames @("Sales Agent", "Motorola Sales Agent")
+    -DisplayNames @("Sales Agent")
 $ontology = Get-ConfiguredItem `
     -EnvironmentName "FABRIC_ONTOLOGY_ID" `
     -Type "Ontology" `
-    -DisplayNames @("MotorolaSalesOntology")
+    -DisplayNames @("SalesOntology")
 $ontologyAgent = Get-ConfiguredItem `
     -EnvironmentName "FABRIC_ONTOLOGY_AGENT_ID" `
     -Type "DataAgent" `
-    -DisplayNames @("Motorola Ontology Agent")
+    -DisplayNames @("Ontology Agent")
 
 foreach ($required in @(
     @{ name = "Sales Certified semantic model"; value = $semanticModel },
     @{ name = "Sales Agent"; value = $semanticAgent },
-    @{ name = "MotorolaSalesOntology"; value = $ontology },
-    @{ name = "Motorola Ontology Agent"; value = $ontologyAgent }
+    @{ name = "SalesOntology"; value = $ontology },
+    @{ name = "Ontology Agent"; value = $ontologyAgent }
 )) {
     if ($null -eq $required.value) {
         throw "$($required.name) isn't recorded as POC-owned in $statePath."
@@ -132,7 +132,7 @@ function Get-DefinitionParts {
                     }
                     else {
                         $source.artifactId = $ontology.id
-                        $source.displayName = "MotorolaSalesOntology"
+                        $source.displayName = "SalesOntology"
                     }
                     $bytes = [Text.Encoding]::UTF8.GetBytes(
                         ($source | ConvertTo-Json -Depth 50 -Compress)
@@ -189,13 +189,13 @@ function Update-And-VerifyDataAgent {
 
 Update-And-VerifyDataAgent `
     -Agent $semanticAgent `
-    -DefinitionRoot "fabric\Motorola Sales Agent.DataAgent" `
+    -DefinitionRoot "fabric\Sales Agent.DataAgent" `
     -SourceType "semantic_model" `
     -ExpectedArtifactId $semanticModel.id
 
 Update-And-VerifyDataAgent `
     -Agent $ontologyAgent `
-    -DefinitionRoot "fabric\Motorola Ontology Agent.DataAgent" `
+    -DefinitionRoot "fabric\Ontology Agent.DataAgent" `
     -SourceType "ontology" `
     -ExpectedArtifactId $ontology.id
 

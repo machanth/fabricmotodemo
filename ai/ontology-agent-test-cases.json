@@ -2,7 +2,7 @@
   "source": {
     "type": "ontology",
     "artifactId": "f520aa4f-e650-4455-88b8-e413f7bba2a2",
-    "displayName": "MotorolaSalesOntology",
+    "displayName": "SalesOntology",
     "generation": 2,
     "currentState": "unbound shell"
   },

@@ -32,7 +32,7 @@ if (Test-Path -LiteralPath $stagingRoot) {
 New-Item -ItemType Directory -Path $stagingRoot -Force | Out-Null
 Copy-Item -Recurse -Force "fabric\*" $stagingRoot
 
-$modelFile = Join-Path $stagingRoot "Motorola Sales Certified.SemanticModel\definition\expressions.tmdl"
+$modelFile = Join-Path $stagingRoot "Sales Certified.SemanticModel\definition\expressions.tmdl"
 $content = Get-Content -Raw -LiteralPath $modelFile
 $content = $content.Replace("{{LAKEHOUSE_SQL_ENDPOINT}}", $sqlEndpoint.connectionString)
 $content = $content.Replace("{{LAKEHOUSE_SQL_DATABASE}}", $sqlEndpoint.id)
@@ -43,8 +43,8 @@ $content = $content.Replace("{{LAKEHOUSE_SQL_DATABASE}}", $sqlEndpoint.id)
 )
 
 $modelDescriptors = @(
-    @{ displayName = "Motorola Sales Certified"; type = "SemanticModel" },
-    @{ displayName = "Motorola Sales Overview"; type = "Report" }
+    @{ displayName = "Sales Certified"; type = "SemanticModel" },
+    @{ displayName = "Sales Overview"; type = "Report" }
 )
 foreach ($descriptor in $modelDescriptors) {
     $existing = Get-WorkspaceItem -WorkspaceId $workspaceId -DisplayName $descriptor.displayName -Type $descriptor.type
@@ -75,11 +75,11 @@ if ($deploymentExitCode -ne 0) {
     throw "Semantic model/report deployment failed. Created item IDs were checkpointed for teardown."
 }
 
-$semanticModel = Get-WorkspaceItem -WorkspaceId $workspaceId -DisplayName "Motorola Sales Certified" -Type "SemanticModel"
+$semanticModel = Get-WorkspaceItem -WorkspaceId $workspaceId -DisplayName "Sales Certified" -Type "SemanticModel"
 if ($null -eq $semanticModel) {
     throw "Deployed semantic model was not found."
 }
-$agentSource = Join-Path $stagingRoot "Motorola Sales Agent.DataAgent\Files\Config\draft\semantic_model-Motorola Sales Certified\datasource.json"
+$agentSource = Join-Path $stagingRoot "Sales Agent.DataAgent\Files\Config\draft\semantic_model-Sales Certified\datasource.json"
 $agentContent = Get-Content -Raw -LiteralPath $agentSource
 $agentContent = $agentContent.Replace("00000000-0000-0000-0000-000000000000", $workspaceId)
 $agentDefinition = $agentContent | ConvertFrom-Json
@@ -90,9 +90,9 @@ $agentDefinition.artifactId = $semanticModel.id
     (New-Object System.Text.UTF8Encoding($false))
 )
 
-$existingAgent = Get-WorkspaceItem -WorkspaceId $workspaceId -DisplayName "Motorola Sales Agent" -Type "DataAgent"
+$existingAgent = Get-WorkspaceItem -WorkspaceId $workspaceId -DisplayName "Sales Agent" -Type "DataAgent"
 if ($null -ne $existingAgent -and -not (Test-StateOwnsItem -State $state -Item $existingAgent)) {
-    throw "Refusing to update pre-existing DataAgent 'Motorola Sales Agent'."
+    throw "Refusing to update pre-existing DataAgent 'Sales Agent'."
 }
 $agentExitCode = 0
 try {
@@ -104,7 +104,7 @@ try {
     $agentExitCode = $LASTEXITCODE
 }
 finally {
-    $deployedAgent = Get-WorkspaceItem -WorkspaceId $workspaceId -DisplayName "Motorola Sales Agent" -Type "DataAgent"
+    $deployedAgent = Get-WorkspaceItem -WorkspaceId $workspaceId -DisplayName "Sales Agent" -Type "DataAgent"
     if ($null -ne $deployedAgent) {
         Add-OwnedItemToState -State $state -Item $deployedAgent
     }
@@ -115,9 +115,9 @@ if ($agentExitCode -ne 0) {
 }
 
 foreach ($descriptor in @(
-    @{ displayName = "Motorola Sales Certified"; type = "SemanticModel" },
-    @{ displayName = "Motorola Sales Overview"; type = "Report" },
-    @{ displayName = "Motorola Sales Agent"; type = "DataAgent" }
+    @{ displayName = "Sales Certified"; type = "SemanticModel" },
+    @{ displayName = "Sales Overview"; type = "Report" },
+    @{ displayName = "Sales Agent"; type = "DataAgent" }
 )) {
     $item = Get-WorkspaceItem -WorkspaceId $workspaceId -DisplayName $descriptor.displayName -Type $descriptor.type
     if ($null -eq $item) {

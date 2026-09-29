@@ -8,9 +8,9 @@ $workspaceId = Get-RequiredEnvironmentValue "FABRIC_WORKSPACE_ID"
 $expected = @(
     @{ displayName = "MedallionLakehouse"; type = "Lakehouse" },
     @{ displayName = "TransformMedallion"; type = "Notebook" },
-    @{ displayName = "Motorola Sales Certified"; type = "SemanticModel" },
-    @{ displayName = "Motorola Sales Overview"; type = "Report" },
-    @{ displayName = "Motorola Sales Agent"; type = "DataAgent" }
+    @{ displayName = "Sales Certified"; type = "SemanticModel" },
+    @{ displayName = "Sales Overview"; type = "Report" },
+    @{ displayName = "Sales Agent"; type = "DataAgent" }
 )
 $missing = @()
 foreach ($descriptor in $expected) {

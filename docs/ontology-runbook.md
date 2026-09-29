@@ -9,9 +9,9 @@ the Gold lakehouse Delta tables. Microsoft currently documents that a Fabric dat
 agent doesn't work with an ontology whose entity bindings come from a semantic model.
 The semantic model therefore remains the direct source for `Sales Agent`, while the
 ontology supplies business entities and relationship context to
-`Motorola Ontology Agent`.
+`Ontology Agent`.
 
-The ontology item is named `MotorolaSalesOntology` because Fabric ontology names must
+The ontology item is named `SalesOntology` because Fabric ontology names must
 start with a letter, contain only letters, numbers, or underscores, and be fewer than
 100 characters.
 
@@ -35,7 +35,7 @@ safe teardown.
 ## Generate entities and bind the Gold tables
 
 Entity generation and source binding use the preview **Ontology agent**, not a public
-REST operation. Open `MotorolaSalesOntology`, select **Ontology agent**, remain in
+REST operation. Open `SalesOntology`, select **Ontology agent**, remain in
 **Plan** mode, and submit:
 
 > Use MedallionLakehouse item bbecaf2d-0d3f-4016-bffc-2b133292a0ee in this workspace.
@@ -81,7 +81,7 @@ Review the key mappings, switch to **Act**, and submit:
    - "Which segments generated the most net revenue?"
    - "Show PCR revenue by region and product category."
    - "Which customers belong to more than one segment?"
-8. `Sales Agent` answers respect semantic-model RLS. For `Motorola Ontology Agent`,
+8. `Sales Agent` answers respect semantic-model RLS. For `Ontology Agent`,
    validate each bound source's effective identity and permissions separately; Power
    BI RLS doesn't automatically transfer to lakehouse-bound ontology queries.
 

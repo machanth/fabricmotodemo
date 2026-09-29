@@ -1,0 +1,9 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/dataAgent/definition/dataSource/1.0.0/schema.json",
+  "artifactId": "f520aa4f-e650-4455-88b8-e413f7bba2a2",
+  "workspaceId": "930bbe6f-b256-46b7-a70e-f3dcab99d2c9",
+  "displayName": "SalesOntology",
+  "type": "ontology",
+  "userDescription": "Generation 2 ontology for synthetic customer, product, segment, sale, and date concepts.",
+  "metadata": {}
+}

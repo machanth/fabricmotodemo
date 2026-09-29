@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.invalid/fabric-motorola-poc/data-agent-config.schema.json",
+  "$id": "https://example.invalid/fabric-sales-poc/data-agent-config.schema.json",
   "title": "POC Fabric data agent configuration",
   "type": "object",
   "required": [

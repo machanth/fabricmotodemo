@@ -15,7 +15,7 @@ if ($state.createdResourceTag -ne "moto-fabric-poc" -or $state.workspaceId -ne $
     throw "Deployment state does not belong to this POC and workspace."
 }
 
-$displayName = "MotorolaSalesOntology"
+$displayName = "SalesOntology"
 $existing = Get-WorkspaceItem -WorkspaceId $workspaceId -DisplayName $displayName -Type "Ontology"
 if ($null -ne $existing -and -not (Test-StateOwnsItem -State $state -Item $existing)) {
     throw "Refusing to update pre-existing Ontology '$displayName'."

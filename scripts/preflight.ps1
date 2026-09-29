@@ -11,9 +11,9 @@ $requiredFiles = @(
     "config\poc.template.json",
     "fabric\MedallionLakehouse.Lakehouse\.platform",
     "fabric\TransformMedallion.Notebook\notebook-content.py",
-    "fabric\Motorola Sales Certified.SemanticModel\definition.pbism",
-    "fabric\Motorola Sales Overview.Report\definition.pbir",
-    "fabric\Motorola Sales Agent.DataAgent\Files\Config\data_agent.json",
+    "fabric\Sales Certified.SemanticModel\definition.pbism",
+    "fabric\Sales Overview.Report\definition.pbir",
+    "fabric\Sales Agent.DataAgent\Files\Config\data_agent.json",
     "ai\data-agent-config.json"
 )
 foreach ($path in $requiredFiles) {

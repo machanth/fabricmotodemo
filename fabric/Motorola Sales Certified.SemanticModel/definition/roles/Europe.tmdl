@@ -1,6 +1,0 @@
-role Europe
-	modelPermission: read
-
-	tablePermission Customer = Customer[Region] = "Europe"
-
-	annotation POC_Persona = Europe demo persona; membership is assigned after deployment.

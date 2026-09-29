@@ -8,12 +8,33 @@ from decimal import Decimal
 from pathlib import Path
 
 ROOT = Path(__file__).parents[1]
-MODEL = ROOT / "fabric" / "Motorola Sales Certified.SemanticModel" / "definition"
-ONTOLOGY = ROOT / "fabric" / "MotorolaSalesOntology.Ontology"
-ONTOLOGY_AGENT = ROOT / "fabric" / "Motorola Ontology Agent.DataAgent"
+MODEL = ROOT / "fabric" / "Sales Certified.SemanticModel" / "definition"
+ONTOLOGY = ROOT / "fabric" / "SalesOntology.Ontology"
+ONTOLOGY_AGENT = ROOT / "fabric" / "Ontology Agent.DataAgent"
 
 
 class RepositoryContractTests(unittest.TestCase):
+    def test_repository_is_webinar_safe(self) -> None:
+        excluded = {".git", ".venv", "dist", "__pycache__"}
+        private_files = {".env", ".fabric-deploy-state.json"}
+        forbidden_brand = "moto" + "rola"
+        for path in ROOT.rglob("*"):
+            if (
+                any(part in excluded for part in path.parts)
+                or path.name in private_files
+                or not path.is_file()
+            ):
+                continue
+            self.assertNotIn(forbidden_brand, path.as_posix().lower())
+            if path.suffix.lower() in {".json", ".md", ".ps1", ".py", ".tmdl", ".pbir", ".pbism"}:
+                self.assertNotIn(
+                    forbidden_brand,
+                    path.read_text(encoding="utf-8-sig").lower(),
+                    msg=str(path.relative_to(ROOT)),
+                )
+        self.assertFalse((ROOT / "docs" / "audio").exists())
+        self.assertFalse((ROOT / "docs" / ("demo-" + "video-runbook.md")).exists())
+
     def test_all_json_is_parseable(self) -> None:
         for path in ROOT.rglob("*.json"):
             with self.subTest(path=path.relative_to(ROOT)):
@@ -64,7 +85,7 @@ class RepositoryContractTests(unittest.TestCase):
     def test_generation_two_ontology_shell_is_source_controlled(self) -> None:
         platform = json.loads((ONTOLOGY / ".platform").read_text(encoding="utf-8"))
         self.assertEqual(platform["metadata"]["type"], "Ontology")
-        self.assertEqual(platform["metadata"]["displayName"], "MotorolaSalesOntology")
+        self.assertEqual(platform["metadata"]["displayName"], "SalesOntology")
         self.assertEqual(platform["config"]["version"], "2.0")
         self.assertIn("compatibilityLevel: 1000000", (ONTOLOGY / "database.tmdl").read_text())
         self.assertIn("ref namespace default", (ONTOLOGY / "model.tmdl").read_text())
@@ -77,7 +98,7 @@ class RepositoryContractTests(unittest.TestCase):
                 / "Files"
                 / "Config"
                 / "draft"
-                / "ontology-MotorolaSalesOntology"
+                / "ontology-SalesOntology"
                 / "datasource.json"
             ).read_text(encoding="utf-8")
         )
@@ -92,7 +113,7 @@ class RepositoryContractTests(unittest.TestCase):
         self.assertIn("Support group by in GQL", stage["aiInstructions"])
 
     def test_semantic_agent_uses_live_certified_model_name(self) -> None:
-        agent_root = ROOT / "fabric" / "Motorola Sales Agent.DataAgent"
+        agent_root = ROOT / "fabric" / "Sales Agent.DataAgent"
         platform = json.loads((agent_root / ".platform").read_text(encoding="utf-8"))
         datasource = json.loads(
             (
@@ -100,7 +121,7 @@ class RepositoryContractTests(unittest.TestCase):
                 / "Files"
                 / "Config"
                 / "draft"
-                / "semantic_model-Motorola Sales Certified"
+                / "semantic_model-Sales Certified"
                 / "datasource.json"
             ).read_text(encoding="utf-8")
         )

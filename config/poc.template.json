@@ -22,7 +22,7 @@
     "subpath": "${SHORTCUT_SUBPATH}"
   },
   "semanticModel": {
-    "name": "Motorola Sales Certified",
+    "name": "Sales Certified",
     "endorsement": "Certified",
     "rlsTestUsers": {
       "North America": "na-demo@example.com",

@@ -62,7 +62,7 @@ RLS role definitions deploy in TMDL; members do not.
 
 ### Fabric data agent
 
-Data-agent creation is GA; configuration management and publish APIs are preview. Both source-controlled drafts are deployed idempotently by `scripts/deploy-data-agents.ps1`: `Sales Agent` uses the certified semantic model and `Motorola Ontology Agent` uses `MotorolaSalesOntology`. `ai/data-agent-config.json`, `ai/instructions.md`, `ai/test-cases.json`, and `ai/ontology-agent-test-cases.json` are the readable contracts and acceptance suites. Publishing remains manual:
+Data-agent creation is GA; configuration management and publish APIs are preview. Both source-controlled drafts are deployed idempotently by `scripts/deploy-data-agents.ps1`: `Sales Agent` uses the certified semantic model and `Ontology Agent` uses `SalesOntology`. `ai/data-agent-config.json`, `ai/instructions.md`, `ai/test-cases.json`, and `ai/ontology-agent-test-cases.json` are the readable contracts and acceptance suites. Publishing remains manual:
 
 1. Open the deployed **Sales Agent** draft.
 2. Verify **Sales Certified** is its only source, the selected business elements match the committed definition, and hidden bridge/technical fields are excluded.
@@ -86,16 +86,12 @@ Data-agent creation is GA; configuration management and publish APIs are preview
 
 ### Power BI mobile
 
-1. Publish/share **Motorola Sales Overview** or include it in a Power BI app.
+1. Publish/share **Sales Overview** or include it in a Power BI app.
 2. Open the report in supported Power BI authoring, switch to **Mobile layout**, arrange the two cards above the chart/table, and publish. External editing of legacy `mobileState.json` is unsupported, so it is not fabricated here.
 3. Install the official Power BI app on iOS/Android, sign in as each RLS persona, open the report/app, and capture the same scoped KPIs.
 4. If managed devices are required, Intune admin center → add the iOS/Android store app → assign users/devices → create and assign the required app-protection policy.
 
 ## 4. Governance and lineage
-
-For a recording-ready walkthrough of these controls, including a recommended Fabric
-domain and subdomain structure, use
-[the demo video runbook](demo-video-runbook.md).
 
 ### Fabric domains
 
@@ -124,8 +120,8 @@ Open **Workspace → Lineage view** and capture the deployed chain. Expected Fab
 For each production item, open **Settings → Endorsement**:
 
 - promote **MedallionLakehouse**
-- certify **Motorola Sales Certified**
-- promote or certify **Motorola Sales Overview** according to tenant policy
+- certify **Sales Certified**
+- promote or certify **Sales Overview** according to tenant policy
 
 Select **Apply**, then verify the badges in OneLake Catalog. Certification/Master data requires the tenant's configured reviewer group. No documented public source/API representation exists for endorsement, so this is evidence-backed manual configuration.
 
