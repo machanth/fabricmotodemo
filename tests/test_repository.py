@@ -9,6 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parents[1]
 MODEL = ROOT / "fabric" / "Motorola Sales Certified.SemanticModel" / "definition"
+ONTOLOGY = ROOT / "fabric" / "MotorolaSalesOntology.Ontology"
 
 
 class RepositoryContractTests(unittest.TestCase):
@@ -58,6 +59,15 @@ class RepositoryContractTests(unittest.TestCase):
                 "goldfactsales",
             },
         )
+
+    def test_generation_two_ontology_shell_is_source_controlled(self) -> None:
+        platform = json.loads((ONTOLOGY / ".platform").read_text(encoding="utf-8"))
+        self.assertEqual(platform["metadata"]["type"], "Ontology")
+        self.assertEqual(platform["metadata"]["displayName"], "MotorolaSalesOntology")
+        self.assertEqual(platform["config"]["version"], "2.0")
+        self.assertIn("compatibilityLevel: 1000000", (ONTOLOGY / "database.tmdl").read_text())
+        self.assertIn("ref namespace default", (ONTOLOGY / "model.tmdl").read_text())
+        self.assertTrue((ONTOLOGY / "namespaces" / "default.tmdl").is_file())
 
     def test_expected_rls_answers_match_committed_sample(self) -> None:
         with (ROOT / "sample-data" / "warehouse" / "orders.csv").open(

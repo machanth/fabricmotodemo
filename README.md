@@ -32,6 +32,7 @@ flowchart LR
 - **Direct Lake semantic model:** source-controlled PBIP/TMDL, six many-to-one relationships, bidirectional bridge propagation, order-date and ship-date role-playing dimensions, hidden keys, descriptions, three DAX measures, and North America/Europe RLS roles.
 - **Thin report:** source-controlled enhanced PBIR with cards, a date chart, and cross-dimension customer/product detail requiring no report-authored joins.
 - **Ask the data:** an official source-controlled DataAgent draft definition, agent instructions, approved schema, test prompts, exact deterministic answers, and same-question RLS persona tests.
+- **Fabric IQ ontology:** a source-controlled Generation 2 ontology shell and an exact Ontology Agent workflow that binds business entities and governed DAX metrics to the existing certified semantic model.
 - **Operations:** official `fabric-cicd` deployment, REST shortcut/job orchestration, preflight, post-deployment checks, safe state-based teardown, field traceability, governance evidence, and a repeatable CU load protocol.
 - **Demo guidance:** a timestamped [video recording runbook](docs/demo-video-runbook.md) covering architecture, Direct Lake, RLS, AI, Fabric domains, OneLake Catalog, endorsement, lineage, Purview, and Capacity Metrics.
 
@@ -55,6 +56,7 @@ The generator is deterministic; rerunning it produces the answer values in `ai/t
 4. Run `scripts\deploy.ps1`. This deploys metadata, uploads warehouse-domain files with the official Azure Storage SDK, creates the external shortcut, and submits the medallion notebook.
 5. After the notebook succeeds, run `scripts\deploy-model-report.ps1`, then `scripts\verify-deployment.ps1`. This deploys the model, report, and DataAgent draft; publishing the agent remains a deliberate UI step.
 6. Complete the tenant/UI-only controls and evidence checklist in [docs/runbook.md](docs/runbook.md).
+7. When the tenant preview is enabled, deploy and bind the Fabric IQ ontology with [the ontology runbook](docs/ontology-runbook.md).
 
 Core deployment is idempotent for item IDs already recorded in `.fabric-deploy-state.json`; it refuses to update an unowned item or shortcut with a colliding name. Shortcut creation uses `CreateOrOverwrite` only for the recorded POC shortcut. State is checkpointed after every creation/deletion so interrupted deployment and teardown remain recoverable. Teardown deletes only recorded POC items after verifying their IDs, names, and types. It never deletes the workspace, capacity, cloud connection, or external storage.
 
