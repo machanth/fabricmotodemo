@@ -2,10 +2,11 @@
 
 ## Design decision
 
-Use the existing **Motorola Sales Certified** semantic model. Don't create a duplicate
-semantic model. The ontology supplies business entities, relationships, and agent
-context; the semantic model remains the governed source for relationships, DAX metrics,
-RLS, and the Direct Lake connection.
+Use the existing **Sales Certified** semantic model
+(`dc34c959-f4fe-4ff7-b566-0aeddcf20ece`). Don't create a duplicate semantic model. The
+ontology supplies business entities, relationships, and agent context; the semantic
+model remains the governed source for relationships, DAX metrics, RLS, and the Direct
+Lake connection.
 
 The ontology item is named `MotorolaSalesOntology` because Fabric ontology names must
 start with a letter, contain only letters, numbers, or underscores, and be fewer than
@@ -34,14 +35,15 @@ Microsoft's documented semantic-model generation path is the preview **Ontology
 Agent**, not a public "generate from semantic model" REST operation. Open
 `MotorolaSalesOntology`, select **Ontology agent**, remain in **Plan** mode, and submit:
 
-> Use the Motorola Sales Certified semantic model in this workspace. Create entity
-> types named Customer, Product, Segment, Customer Segment Assignment, Sale, Order
-> Date, and Ship Date. Bind each entity to the correspondingly named semantic model
-> table. Bind Sale to Fact Sales. Preserve the semantic model's business-friendly
-> property names and don't expose hidden technical columns except keys required for
-> entity identity and relationships. Add the Net Revenue, PCR Revenue, and Order Count
-> DAX measures from Fact Sales as Sale metrics. PCR means Priority Communications
-> Revenue and is synthetic terminology for this POC.
+> Use the Sales Certified semantic model with item ID
+> dc34c959-f4fe-4ff7-b566-0aeddcf20ece in this workspace. Create entity types named
+> Customer, Product, Segment, Customer Segment Assignment, Sale, Order Date, and Ship
+> Date. Bind each entity to the correspondingly named semantic model table. Bind Sale
+> to Fact Sales. Preserve the semantic model's business-friendly property names and
+> don't expose hidden technical columns except keys required for entity identity and
+> relationships. Add the Net Revenue, PCR Revenue, and Order Count DAX measures from
+> Fact Sales as Sale metrics. PCR means Priority Communications Revenue and is
+> synthetic terminology for this POC.
 
 Review the proposed plan. It must reference semantic model
 `dc34c959-f4fe-4ff7-b566-0aeddcf20ece` in workspace
@@ -65,7 +67,8 @@ Review the key mappings, switch to **Act**, and submit:
 ## Acceptance checks
 
 1. The canvas contains seven entity types and six relationships.
-2. `Sale` is bound to `Fact Sales` from **Motorola Sales Certified**.
+2. `Sale` is bound to `Fact Sales` from **Sales Certified** with item ID
+   `dc34c959-f4fe-4ff7-b566-0aeddcf20ece`.
 3. `Sale` exposes **Net Revenue**, **PCR Revenue**, and **Order Count** as metrics.
 4. Customer-to-segment navigation passes through **Customer Segment Assignment**.
 5. Order Date and Ship Date remain separate business roles.
