@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
   "metadata": {
     "type": "DataAgent",
-    "displayName": "Sales Agent",
-    "description": "Read-only POC agent grounded in the certified synthetic sales semantic model."
+    "displayName": "Motorola Ontology Agent",
+    "description": "POC agent intended for the governed synthetic sales ontology."
   },
   "config": {
     "version": "2.0",
-    "logicalId": "b184fae7-6fc1-4a0b-bc81-ee4df2d480d9"
+    "logicalId": "9449cf8c-97ad-4344-84f4-a34355ecdb00"
   }
 }

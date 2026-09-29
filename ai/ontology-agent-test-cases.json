@@ -1,0 +1,46 @@
+{
+  "source": {
+    "type": "ontology",
+    "artifactId": "f520aa4f-e650-4455-88b8-e413f7bba2a2",
+    "displayName": "MotorolaSalesOntology",
+    "generation": 2,
+    "currentState": "unbound shell"
+  },
+  "tests": [
+    {
+      "id": "ontology-pcr-definition",
+      "prompt": "What does PCR mean in this proof of concept?",
+      "expected": "PCR means Priority Communications Revenue and is synthetic terminology used only for this POC."
+    },
+    {
+      "id": "ontology-na-kpis",
+      "persona": "North America",
+      "prompt": "What are net revenue, PCR revenue, and order count for 2025?",
+      "expectedAfterSupportedBinding": {
+        "region": "North America",
+        "netRevenue": 6737571.05,
+        "pcrRevenue": 1477389.30,
+        "orderCount": 300
+      },
+      "securityPrerequisite": "The ontology binding must enforce the North America persona at the source. Power BI semantic-model RLS does not transfer to a lakehouse-bound ontology."
+    },
+    {
+      "id": "ontology-europe-kpis",
+      "persona": "Europe",
+      "prompt": "What are net revenue, PCR revenue, and order count for 2025?",
+      "expectedAfterSupportedBinding": {
+        "region": "Europe",
+        "netRevenue": 12893250.00,
+        "pcrRevenue": 2987650.25,
+        "orderCount": 600
+      },
+      "securityPrerequisite": "The ontology binding must enforce the Europe persona at the source. Power BI semantic-model RLS does not transfer to a lakehouse-bound ontology."
+    },
+    {
+      "id": "ontology-multi-segment",
+      "prompt": "Which customers belong to more than one segment?",
+      "expectedShapeAfterSupportedBinding": "Customer and segment assignment count, with the many-to-many relationship preserved."
+    }
+  ],
+  "blockingDependency": "The live ontology currently has no entities or bindings. Fabric documents a current known issue for data agents over ontologies that use semantic-model bindings. Bind ontology entities to supported queryable sources before expecting data answers."
+}

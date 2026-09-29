@@ -10,6 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).parents[1]
 MODEL = ROOT / "fabric" / "Motorola Sales Certified.SemanticModel" / "definition"
 ONTOLOGY = ROOT / "fabric" / "MotorolaSalesOntology.Ontology"
+ONTOLOGY_AGENT = ROOT / "fabric" / "Motorola Ontology Agent.DataAgent"
 
 
 class RepositoryContractTests(unittest.TestCase):
@@ -68,6 +69,44 @@ class RepositoryContractTests(unittest.TestCase):
         self.assertIn("compatibilityLevel: 1000000", (ONTOLOGY / "database.tmdl").read_text())
         self.assertIn("ref namespace default", (ONTOLOGY / "model.tmdl").read_text())
         self.assertTrue((ONTOLOGY / "namespaces" / "default.tmdl").is_file())
+
+    def test_ontology_agent_intent_and_warning_are_source_controlled(self) -> None:
+        datasource = json.loads(
+            (
+                ONTOLOGY_AGENT
+                / "Files"
+                / "Config"
+                / "draft"
+                / "ontology-MotorolaSalesOntology"
+                / "datasource.json"
+            ).read_text(encoding="utf-8")
+        )
+        stage = json.loads(
+            (
+                ONTOLOGY_AGENT / "Files" / "Config" / "draft" / "stage_config.json"
+            ).read_text(encoding="utf-8")
+        )
+        self.assertEqual(datasource["type"], "ontology")
+        self.assertEqual(datasource["artifactId"], "f520aa4f-e650-4455-88b8-e413f7bba2a2")
+        self.assertIn("PCR means Priority Communications Revenue", stage["aiInstructions"])
+        self.assertIn("Support group by in GQL", stage["aiInstructions"])
+
+    def test_semantic_agent_uses_live_certified_model_name(self) -> None:
+        agent_root = ROOT / "fabric" / "Motorola Sales Agent.DataAgent"
+        platform = json.loads((agent_root / ".platform").read_text(encoding="utf-8"))
+        datasource = json.loads(
+            (
+                agent_root
+                / "Files"
+                / "Config"
+                / "draft"
+                / "semantic_model-Motorola Sales Certified"
+                / "datasource.json"
+            ).read_text(encoding="utf-8")
+        )
+        self.assertEqual(platform["metadata"]["displayName"], "Sales Agent")
+        self.assertEqual(datasource["displayName"], "Sales Certified")
+        self.assertEqual(datasource["type"], "semantic_model")
 
     def test_expected_rls_answers_match_committed_sample(self) -> None:
         with (ROOT / "sample-data" / "warehouse" / "orders.csv").open(

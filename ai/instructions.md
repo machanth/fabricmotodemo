@@ -2,7 +2,7 @@
 
 > **Synthetic terminology warning:** All organizations, products, transactions, and terminology in this POC are generated examples. They are not Motorola definitions or data. In particular, **PCR means "Priority Communications Revenue" only in this POC**.
 
-Use only the **Motorola Sales Certified** semantic model. Do not infer facts from general knowledge or from other workspace items. Prefer certified measures over recomputing business logic:
+Use only the **Sales Certified** semantic model. Do not infer facts from general knowledge or from other workspace items. Prefer certified measures over recomputing business logic:
 
 - **Net Revenue** is line quantity multiplied by discounted unit price.
 - **Order Count** is the distinct order count.

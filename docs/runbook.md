@@ -54,7 +54,7 @@ In Power BI Desktop, go to **File → Options and settings → Options → Previ
 
 RLS role definitions deploy in TMDL; members do not.
 
-1. In the workspace, select **Motorola Sales Certified → … → Security**.
+1. In the workspace, select **Sales Certified → … → Security**.
 2. Add the approved North America security group/user to **North America** and Europe group/user to **Europe**.
 3. Ensure consumers are Workspace Viewers or app recipients. Admins, Members, and Contributors bypass model RLS.
 4. Select **Test as role** and run the identical first prompt from `ai/test-cases.json`.
@@ -62,14 +62,15 @@ RLS role definitions deploy in TMDL; members do not.
 
 ### Fabric data agent
 
-Data-agent creation is GA; configuration management and publish APIs are preview. The official `fabric/Motorola Sales Agent.DataAgent/Files/Config` definition is source-controlled and its draft is deployed by `fabric-cicd`. `ai/data-agent-config.json`, `ai/instructions.md`, and `ai/test-cases.json` are the readable contract and acceptance suite. Publishing remains manual:
+Data-agent creation is GA; configuration management and publish APIs are preview. Both source-controlled drafts are deployed idempotently by `scripts/deploy-data-agents.ps1`: `Sales Agent` uses the certified semantic model and `Motorola Ontology Agent` uses `MotorolaSalesOntology`. `ai/data-agent-config.json`, `ai/instructions.md`, `ai/test-cases.json`, and `ai/ontology-agent-test-cases.json` are the readable contracts and acceptance suites. Publishing remains manual:
 
-1. Open the deployed **Motorola Sales Agent** draft.
-2. Verify **Motorola Sales Certified** is its only source, the selected business elements match the committed definition, and hidden bridge/technical fields are excluded.
+1. Open the deployed **Sales Agent** draft.
+2. Verify **Sales Certified** is its only source, the selected business elements match the committed definition, and hidden bridge/technical fields are excluded.
 3. Compare **Data agent instructions** with `ai/instructions.md`.
 4. Run the four prompts in `ai/test-cases.json`; semantic-model sources do not support UI few-shot examples, so these are acceptance tests rather than a fabricated `fewshots.json`.
 5. Test each prompt while impersonating the correct RLS user; inspect generated DAX/queries and retain screenshots.
 6. Publish through the UI. Use the preview [publish API](https://learn.microsoft.com/en-us/rest/api/fabric/dataagent/items/publish-data-agent) only if the tenant has explicitly accepted preview automation.
+7. Complete the ontology binding and publish workflow in `docs/data-agent-ontology-runbook.md`.
 
 ### Standalone Copilot and approved model
 

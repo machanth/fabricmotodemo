@@ -54,9 +54,10 @@ The generator is deterministic; rerunning it produces the answer values in `ai/t
 2. Install Microsoft-supported deployment tooling: `python -m pip install -r requirements-deploy.txt`.
 3. Upload `sample-data\object-storage` to the configured ADLS Gen2/S3 path and create its Fabric cloud connection.
 4. Run `scripts\deploy.ps1`. This deploys metadata, uploads warehouse-domain files with the official Azure Storage SDK, creates the external shortcut, and submits the medallion notebook.
-5. After the notebook succeeds, run `scripts\deploy-model-report.ps1`, then `scripts\verify-deployment.ps1`. This deploys the model, report, and DataAgent draft; publishing the agent remains a deliberate UI step.
-6. Complete the tenant/UI-only controls and evidence checklist in [docs/runbook.md](docs/runbook.md).
-7. When the tenant preview is enabled, deploy and bind the Fabric IQ ontology with [the ontology runbook](docs/ontology-runbook.md).
+5. After the notebook succeeds, run `scripts\deploy-model-report.ps1`, then `scripts\verify-deployment.ps1`. This deploys the model, report, and semantic-model DataAgent draft.
+6. When the tenant preview is enabled, deploy and bind the Fabric IQ ontology with [the ontology runbook](docs/ontology-runbook.md).
+7. Run `scripts\deploy-data-agents.ps1` to idempotently deploy and verify the semantic-model and ontology-grounded DataAgent drafts.
+8. Complete the tenant/UI-only controls, publish steps, and evidence checklist in [docs/runbook.md](docs/runbook.md).
 
 Core deployment is idempotent for item IDs already recorded in `.fabric-deploy-state.json`; it refuses to update an unowned item or shortcut with a colliding name. Shortcut creation uses `CreateOrOverwrite` only for the recorded POC shortcut. State is checkpointed after every creation/deletion so interrupted deployment and teardown remain recoverable. Teardown deletes only recorded POC items after verifying their IDs, names, and types. It never deletes the workspace, capacity, cloud connection, or external storage.
 

@@ -1,11 +1,11 @@
 {
   "$schema": "./data-agent-config.schema.json",
-  "displayName": "Motorola Sales Agent",
+  "displayName": "Sales Agent",
   "description": "Read-only POC agent grounded only in the certified synthetic sales model.",
   "sourceBinding": {
     "type": "SemanticModel",
     "workspaceId": "${FABRIC_WORKSPACE_ID}",
-    "displayName": "Motorola Sales Certified",
+    "displayName": "Sales Certified",
     "itemId": "${SEMANTIC_MODEL_ITEM_ID}"
   },
   "approvedTables": [
